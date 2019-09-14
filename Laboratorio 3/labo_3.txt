@@ -1,0 +1,43 @@
+labo 3
+
+driver adc
+
+struct adc_channl_cfg[MAX_CHANNELS]
+{
+	void (* callback)();
+	int valor;
+	int activo;
+	int hay_conversion;
+}
+
+static canal_actual;
+static no_convirtiendo=1;
+
+adc_init(cfg)
+{
+	adc_channel_cfg[cfg->channel]=*cfg;
+	adc_channel_cfg[cfg->channel].activo=1;
+	-----
+	// si no estoy convirtiendo
+	if(no_convirtiendo)
+	{
+		no_convirtiendo=0;
+	}
+}
+
+
+ISR(ADC_Vect)
+{
+	adc_channel_cfg[canal_actual]=ADC;
+	adc_channel_cfg[canal_actual].hay_conversion=1;
+	// buscar el proximo canal
+}
+
+adc_loop()
+{
+	// Para cada canal en el adc_channel_cfg
+	// if (adc_channel_cfg[i].hay_conversion)
+	{
+		callback();
+	}
+}

@@ -1,0 +1,5 @@
+podriamos tener un driver adc y otro para el timer
+
+en el driver de timer lo podriamos haber implementado como que cada un determinado tiempo de ejecute una funcion de callback
+
+lo mismo con el adc

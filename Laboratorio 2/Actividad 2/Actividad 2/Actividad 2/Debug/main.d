@@ -34,7 +34,7 @@ main.d main.o: .././main.cpp \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\util\delay_basic.h \
  C:\Program\ Files\ (x86)\Arduino\hardware\arduino\avr\cores\arduino/Arduino.h \
  C:\Program\ Files\ (x86)\Arduino\hardware\arduino\avr\variants\standard/pins_arduino.h \
- C:\Users\brunn\DOCUME~1\UNS\SE\LABORA~1\LABORA~2\ACTIVI~1\ACTIVI~1\ACTIVI~1\LIBRAR~1/LiquidCrystal.h \
+ C:\Users\brunn\DOCUME~1\UNS\SE\LABORA~1\se2019\LABORA~2\ACTIVI~1\ACTIVI~1\ACTIVI~1\LIBRAR~1/LiquidCrystal.h \
  C:\Program\ Files\ (x86)\Arduino\hardware\arduino\avr\cores\arduino/Print.h \
  .././fnqueue.h .././device.h
 
@@ -108,7 +108,7 @@ C:\Program\ Files\ (x86)\Arduino\hardware\arduino\avr\cores\arduino/Arduino.h:
 
 C:\Program\ Files\ (x86)\Arduino\hardware\arduino\avr\variants\standard/pins_arduino.h:
 
-C:\Users\brunn\DOCUME~1\UNS\SE\LABORA~1\LABORA~2\ACTIVI~1\ACTIVI~1\ACTIVI~1\LIBRAR~1/LiquidCrystal.h:
+C:\Users\brunn\DOCUME~1\UNS\SE\LABORA~1\se2019\LABORA~2\ACTIVI~1\ACTIVI~1\ACTIVI~1\LIBRAR~1/LiquidCrystal.h:
 
 C:\Program\ Files\ (x86)\Arduino\hardware\arduino\avr\cores\arduino/Print.h:
 

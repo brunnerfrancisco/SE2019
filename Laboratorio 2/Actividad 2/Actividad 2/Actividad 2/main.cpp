@@ -1,4 +1,4 @@
-#define F_CPU 16000000U
+//#define F_CPU 16000000U
 #include "Arduino.h"
 #include <LiquidCrystal.h>
 #include "fnqueue.h"

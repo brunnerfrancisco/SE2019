@@ -1,5 +1,5 @@
 LiquidCrystal.d LiquidCrystal.o: .././LiquidCrystal.cpp \
- C:\Users\brunn\DOCUME~1\UNS\SE\LABORA~1\LABORA~2\ACTIVI~1\ACTIVI~1\ACTIVI~1\LIBRAR~1/LiquidCrystal.h \
+ C:\Users\brunn\DOCUME~1\UNS\SE\LABORA~1\se2019\LABORA~2\ACTIVI~1\ACTIVI~1\ACTIVI~1\LIBRAR~1/LiquidCrystal.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\inttypes.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\lib\gcc\avr\5.4.0\include\stdint.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\stdint.h \
@@ -37,7 +37,7 @@ LiquidCrystal.d LiquidCrystal.o: .././LiquidCrystal.cpp \
  C:\Program\ Files\ (x86)\Arduino\hardware\arduino\avr\cores\arduino/Arduino.h \
  C:\Program\ Files\ (x86)\Arduino\hardware\arduino\avr\variants\standard/pins_arduino.h
 
-C:\Users\brunn\DOCUME~1\UNS\SE\LABORA~1\LABORA~2\ACTIVI~1\ACTIVI~1\ACTIVI~1\LIBRAR~1/LiquidCrystal.h:
+C:\Users\brunn\DOCUME~1\UNS\SE\LABORA~1\se2019\LABORA~2\ACTIVI~1\ACTIVI~1\ACTIVI~1\LIBRAR~1/LiquidCrystal.h:
 
 c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\inttypes.h:
 
