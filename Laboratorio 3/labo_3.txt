@@ -2,7 +2,7 @@ labo 3
 
 driver adc
 
-struct adc_channl_cfg[MAX_CHANNELS]
+struct adc_channel_cfg[MAX_CHANNELS]
 {
 	void (* callback)();
 	int valor;
@@ -36,7 +36,7 @@ ISR(ADC_Vect)
 adc_loop()
 {
 	// Para cada canal en el adc_channel_cfg
-	// if (adc_channel_cfg[i].hay_conversion)
+	if (adc_channel_cfg[i].hay_conversion)
 	{
 		callback();
 	}
