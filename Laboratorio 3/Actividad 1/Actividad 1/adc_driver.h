@@ -6,13 +6,12 @@
 struct adc_cfg
 {
 	int channel;
-	void (*callback)(int);
+	void (*callback)();
 	int value;
 	int active;
 	int finish_convertion;
 };
 
 int adc_init(struct adc_cfg *cfg);
-//void adc_loop();
 
 #endif /* ADC_DRIVER_H_ */
