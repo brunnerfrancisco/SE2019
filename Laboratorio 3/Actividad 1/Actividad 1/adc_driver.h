@@ -13,6 +13,6 @@ struct adc_cfg
 };
 
 int adc_init(struct adc_cfg *cfg);
-void adc_loop();
+//void adc_loop();
 
 #endif /* ADC_DRIVER_H_ */

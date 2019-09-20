@@ -52,20 +52,22 @@ void ProcesarAdc()
 	}
 	;
 }
-/*
-ISR(ADC_vect){
-	contador++;
-	if(contador>50){
-		analogVal= ADC;
-		fnqueue_add(ProcesarAdc);
-		contador=0;
-	}
-	
+
+void keyboard_init(void){
+	adc_cfg cfg_keyboard;
+	cfg_keyboard.channel = 0;
+	cfg_keyboard.callback = ProcesarAdc;
+	cfg_keyboard.value = 0;
+	cfg_keyboard.active = 0;
+	cfg_keyboard.finish_convertion = 0;
+	adc_init(&cfg_keyboard);
 }
-*/
+
+/*
+
 void teclado_setup()
 {
-		
+		
 	// clear ADLAR in ADMUX (0x7C) to right-adjust the result
 	// ADCL will contain lower 8 bits, ADCH upper 2 (in last two bits)
 	ADMUX &= ~(1<<ADLAR);
@@ -116,6 +118,8 @@ void teclado_setup()
 	// Kick off the first ADC
 		
 	// Set ADSC in ADCSRA (0x7A) to start the ADC conversion
-	ADCSRA |= 1<<ADSC;
+	ADCSRA |= 1<<ADSC;
 		
 }
+
+*/

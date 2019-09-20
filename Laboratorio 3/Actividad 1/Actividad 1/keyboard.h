@@ -10,7 +10,7 @@
 
 void key_up_callback(void (* handler)(), int tecla);
 void key_down_callback(void (* handler)(), int tecla);
-void teclado_setup();
+void keyboard_init();
 
 struct callback_str{
 	void (* callback_Up) ();
