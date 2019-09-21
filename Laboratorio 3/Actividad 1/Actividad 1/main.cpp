@@ -1,12 +1,15 @@
+
 #include <avr/io.h>
+#include <stdint.h>
+#include <LiquidCrystal.h>
+
 #include "Arduino.h"
 #include "fnqueue.h"
 #include "keyboard.h"
 #include "sensor_driver.h"
-#include "adc_driver.h"
-#include <LiquidCrystal.h>
 
 #define MAX_TEMP 100
+
 // initialize the library with the numbers of the interface pins
 LiquidCrystal lcd(8, 9, 4, 5, 6, 7);
 
@@ -80,7 +83,7 @@ void down_keyRight()
 {
 	lcd.setCursor(0,1);
 	lcd.print("PROM. C° ");
-	
+	Serial.println ("llegue al down_keyRight");
 	float promedio=0;
 	int16_t i;
 	for (i = 1; i < MAX_TEMP ; i++)
@@ -120,24 +123,32 @@ void down_keySelect()
 	lcd.print("                ");
 }
 
-void ProcesarTemperatura(int sensor_value)
+void process_temperature(int sensor_value)
 {
 	// Calculo de la temperatura segun el valor retornado.
 	Temperatura = sensor_value * 1.1 * 100 / 1024;			// formula de mapeo del sensor
 	arregloTemperaturas[indice] = Temperatura;
 	indice = (indice + 1) % MAX_TEMP;
-	Serial.println("hola llegue al procesar temperatura");
-	Serial.println(sensor_value);
+	//Serial.println("hola llegue al procesar temperatura");
+	//Serial.println(sensor_value);
 }
 
 void setup()
 {
 	Serial.begin (9600);
+
 	lcd.begin(numCols,numRows);
-	keyboard_init();
+
+	lcd.setCursor (0,0);
+	lcd.print ("SE2019 Sen.Temp.");
+	lcd.setCursor (0,1);
+	lcd.print ("                ");
+	
 	fnqueue_init();
 	
-	sensor_init(ProcesarTemperatura);
+	keyboard_init();
+
+	//sensor_init(process_temperature);
 	
 	// callbacks del keyboard
 	key_up_callback(up_keyUp, TECLAUP);
