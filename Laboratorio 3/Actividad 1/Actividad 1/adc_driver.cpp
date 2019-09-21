@@ -11,18 +11,18 @@
 static int volatile actual_channel = 0;
 static int converting = 0;
 
-struct adc_cfg *adc_channel_cfg[MAX_CHANNELS];
+struct adc_cfg adc_channel_cfg[MAX_CHANNELS];
 
 int adc_init(struct adc_cfg *cfg)
 {
 
-	adc_channel_cfg[ cfg->channel ] = cfg;
+	adc_channel_cfg[ cfg->channel ] = *cfg;
 	
 	//La entrada analogica se selecciona escribiendo MUX bits en ADMUX
 	//El enable se hace desde el ADC enable bit ADEN en ADCSRA
 	//Para hacer que interrumpa el adc que se trigeree cuando una conversion se completa
 	
-	adc_channel_cfg[ cfg->channel ]->active = 1;
+	adc_channel_cfg[ cfg->channel ].active = 1;
 
 	if(!converting)
 	{
@@ -53,12 +53,12 @@ void adc_process()
 	// Para cada canal en el adc_channel_cfg llamo a la funcion de callback que haya terminado la conversion
 	for(int i=0; i<MAX_CHANNELS; i++)
 	{
-		if (adc_channel_cfg[i]->finish_convertion)
+		if (adc_channel_cfg[i].finish_convertion)
 		{
 			//Serial.print("leo en el canal ");Serial.print (adc_channel_cfg[i]->channel);
 			//Serial.print(" value adc ");Serial.println (adc_channel_cfg[i]->value);
-			adc_channel_cfg[i]->callback();
-			adc_channel_cfg[i]->finish_convertion = 0;
+			adc_channel_cfg[i].callback(adc_channel_cfg[i].value);
+			adc_channel_cfg[i].finish_convertion = 0;
 		}
 	}
 }
@@ -66,8 +66,8 @@ void adc_process()
 ISR(ADC_vect)
 {
 	uint16_t value_adc = (ADCL) | (ADCH << 8);
-	adc_channel_cfg[actual_channel]->value = value_adc;
-	adc_channel_cfg[actual_channel]->finish_convertion = 1;
+	adc_channel_cfg[actual_channel].value = value_adc;
+	adc_channel_cfg[actual_channel].finish_convertion = 1;
 
 	if(!actual_channel)
 	{

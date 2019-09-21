@@ -6,7 +6,7 @@
 struct adc_cfg
 {
 	int channel;
-	void (*callback)();
+	void (*callback)(uint16_t);
 	uint16_t value;
 	int active;
 	int finish_convertion;

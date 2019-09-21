@@ -11,7 +11,7 @@
 static int16_t oldkey = -1;
 uint16_t adc_key_val[NRO_TECLAS] = { 50, 230, 360, 535, 760 };
 struct callback_str teclas_callback[ NRO_TECLAS ];
-adc_cfg *cfg_keyboard;
+adc_cfg cfg_keyboard;
 
 void key_up_callback(void (* handler)(), int tecla)
 {
@@ -25,18 +25,11 @@ void key_down_callback(void (* handler)(), int tecla)
 		teclas_callback[tecla].callback_Down = handler;
 }
 
-void adc_keyboard_process(void)
+void adc_keyboard_process(uint16_t analogVal)
 {
 	int16_t k;
-	/*
-	Serial.println("");
-	Serial.println("llegue al callback del keyboard");
-	Serial.println("");
-	Serial.print("keyboard value ");Serial.println(cfg_keyboard.value);
-	Serial.println("");
-	*/
 	
-	uint16_t analogVal = cfg_keyboard->value;
+	//uint16_t analogVal = cfg_keyboard->value;
 	Serial.print("            keyboard adc ");Serial.println (analogVal);
 	for (k = 0; k < NRO_TECLAS; k++)
 	{
@@ -76,10 +69,10 @@ void adc_keyboard_callback(void)
 
 void keyboard_init(void)
 {
-	cfg_keyboard->channel = KEYBOARD_CHNL;
-	cfg_keyboard->callback = adc_keyboard_process;
-	cfg_keyboard->value = 0;
-	cfg_keyboard->active = 0;
-	cfg_keyboard->finish_convertion = 0;
-	adc_init(cfg_keyboard);
+	cfg_keyboard.channel = KEYBOARD_CHNL;
+	cfg_keyboard.callback = adc_keyboard_process;
+	cfg_keyboard.value = 0;
+	cfg_keyboard.active = 0;
+	cfg_keyboard.finish_convertion = 0;
+	adc_init(&cfg_keyboard);
 }
