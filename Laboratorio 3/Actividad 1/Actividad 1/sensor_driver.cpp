@@ -15,14 +15,15 @@ bool store = false; // flag que le dice al adc que llame al callback con el ulti
 static uint16_t value_store = 0;
 
 // callback del driver para responder a la solicitud de temperaturas del main
-void (* callback_sensor) (int);
+void (* callback_sensor) (float);
 
 // estructura donde se va a almacenar la configuracion del ADC
 adc_cfg adc_sensor;
 
 void process_callback_sensor()
 {
-	callback_sensor (value_store);
+	float value_sensor = (float)(value_store*500)/1024;			// convierto el valor digital a temperatura
+	callback_sensor (value_sensor);
 }
 
 void adc_sensor_callback(uint16_t value)
@@ -32,7 +33,6 @@ void adc_sensor_callback(uint16_t value)
 	{
 		store = false;
 		value_store = value;
-		//Serial.print("sensor adc ");Serial.println (adc_sensor->value);
 		fnqueue_add ( process_callback_sensor );
 	}
 }
@@ -42,7 +42,7 @@ void timer_callback()
 	store = true;
 }
 
-int sensor_init(void (* callback_sen)(int))
+int sensor_init(void (* callback_sen)(float))
 {
 	callback_sensor = callback_sen;
 

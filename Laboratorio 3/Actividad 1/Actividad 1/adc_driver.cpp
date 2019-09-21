@@ -17,28 +17,23 @@ int adc_init(struct adc_cfg *cfg)
 {
 
 	adc_channel_cfg[ cfg->channel ] = *cfg;
-	
-	//La entrada analogica se selecciona escribiendo MUX bits en ADMUX
-	//El enable se hace desde el ADC enable bit ADEN en ADCSRA
-	//Para hacer que interrumpa el adc que se trigeree cuando una conversion se completa
-	
 	adc_channel_cfg[ cfg->channel ].active = 1;
 
 	if(!converting)
 	{
 
 		cli();
-		ADCSRA |= (1 << ADPS2) | (1 << ADPS1) | (1 << ADPS0);//  prescaler al máximo. para modular velocidad de muestreo
+		ADCSRA |= (1 << ADPS2) | (1 << ADPS1) | (1 << ADPS0);//  prescaler 
 			
-		ADMUX |= (1 << REFS0);      // voltaje referencia.
-		ADMUX &= ~(1 << ADLAR);     // left aligned (sheet: 24.9.3.1/2).
+		ADMUX |= (1 << REFS0);
+		ADMUX &= ~(1 << ADLAR);
 			
-		ADCSRA &= ~(1 << ADATE);     // deshabilitar auto trigger.
+		ADCSRA &= ~(1 << ADATE);     // deshabilitar el Auto Trigger.
 			
-		ADCSRA |= (1 << ADEN);      // enable ADC.
+		ADCSRA |= (1 << ADEN);      // habilitar ADC.
 		ADCSRA |= (1 << ADIE);
-		// habilitar que el conversor interrumpa cuando haya terminado una conversion
-		ADMUX &= ~((1 << MUX3) | (1 << MUX2) | (1 << MUX1) | (1 << MUX0));//Canal predefinido 0
+
+		ADMUX &= ~((1 << MUX3) | (1 << MUX2) | (1 << MUX1) | (1 << MUX0));
 			
 		ADCSRA |= (1 << ADSC); 
 		// habilito las interrupciones
@@ -55,8 +50,6 @@ void adc_process()
 	{
 		if (adc_channel_cfg[i].finish_convertion)
 		{
-			//Serial.print("leo en el canal ");Serial.print (adc_channel_cfg[i]->channel);
-			//Serial.print(" value adc ");Serial.println (adc_channel_cfg[i]->value);
 			adc_channel_cfg[i].callback(adc_channel_cfg[i].value);
 			adc_channel_cfg[i].finish_convertion = 0;
 		}

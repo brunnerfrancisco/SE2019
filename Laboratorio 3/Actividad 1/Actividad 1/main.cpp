@@ -18,9 +18,11 @@ LiquidCrystal lcd(8, 9, 4, 5, 6, 7);
 const uint8_t numRows = 2;
 const uint8_t numCols = 16;
 
-float Temperatura;
-float arregloTemperaturas[MAX_TEMP];
-static uint16_t indice = 0;
+float actual = 0;
+float temperatures[MAX_TEMP];
+static int index = 0;
+static uint16_t cant_samples = 0;
+static bool promflag = false;
 
 void up_keyUp()
 {
@@ -33,13 +35,13 @@ void down_keyUp()
 	lcd.setCursor(0,1);
 	lcd.print("MAX. C° ");
 	
-	float mayor = arregloTemperaturas[0];
+	float mayor = temperatures[0];
 	int16_t i;
 	for (i = 1; i < MAX_TEMP ; i++)
 	{
-		if (mayor < arregloTemperaturas[i])
+		if (temperatures[i] > 0.0 && mayor < temperatures[i])
 		{
-			mayor = arregloTemperaturas[i];
+			mayor = temperatures[i];
 		}
 	}
 	
@@ -59,13 +61,13 @@ void down_keyDown()
 	lcd.setCursor(0,1);
 	lcd.print("MIN. C° ");
 	
-	float minimo = arregloTemperaturas[0];
+	float minimo = temperatures[0];
 	int16_t i;
 	for (i = 1; i < MAX_TEMP ; i++)
 	{
-		if (minimo > arregloTemperaturas[i])
+		if (temperatures[i] > 0.0 && minimo > temperatures[i])
 		{
-			minimo = arregloTemperaturas[i];
+			minimo = temperatures[i];
 		}
 	}
 	
@@ -84,16 +86,31 @@ void down_keyRight()
 	lcd.setCursor(0,1);
 	lcd.print("PROM. C° ");
 	Serial.println ("llegue al down_keyRight");
-	float promedio=0;
+	float average = 0;
 	int16_t i;
-	for (i = 1; i < MAX_TEMP ; i++)
+	
+	if(promflag)
 	{
-		promedio = promedio + arregloTemperaturas[i];
+		for (i = 1; i < MAX_TEMP ; i++)
+		{
+			average += temperatures[i];
+		}
+		average = average / MAX_TEMP;
 	}
-	promedio = promedio / 100;
+	else
+	{
+		for (i = 1; i < index ; i++)
+		{
+			average += temperatures[i];
+		}
+		if(index == 0)
+			average = 0;
+		else
+			average = average / index;
+	}
 	
 	lcd.setCursor(11,1);
-	lcd.print(promedio);
+	lcd.print(average);
 	
 }
 
@@ -108,7 +125,10 @@ void down_keyLeft()
 	lcd.setCursor(0,1);
 	lcd.print("ACTUAL C° ");
 	lcd.setCursor(11,1);
-	lcd.print(Temperatura);
+	float actual = 0;
+	if(index > 0)
+		actual = temperatures[index-1];
+	lcd.print(actual);
 }
 
 void up_keySelect()
@@ -120,15 +140,19 @@ void up_keySelect()
 void down_keySelect()
 {
 	lcd.setCursor(0,1);
-	lcd.print("                ");
+	lcd.print("CANT M:");
+	lcd.setCursor(11,1);
+	lcd.print(cant_samples);
 }
 
-void process_temperature(int sensor_value)
+void process_temperature(float sensor_value)
 {
 	// Calculo de la temperatura segun el valor retornado.
-	Temperatura = sensor_value * 1.1 * 100 / 1024;			// formula de mapeo del sensor
-	arregloTemperaturas[indice] = Temperatura;
-	indice = (indice + 1) % MAX_TEMP;
+	temperatures[index] = sensor_value;
+	if(index==100)
+		promflag = true;
+	index = (index + 1) % MAX_TEMP;
+	cant_samples++;
 	//Serial.println("hola llegue al procesar temperatura");
 	//Serial.println(sensor_value);
 }
@@ -138,6 +162,9 @@ void setup()
 	Serial.begin (9600);
 
 	lcd.begin(numCols,numRows);
+
+	for(int i=0; i<MAX_TEMP;i++)
+		temperatures[i]=-1;
 
 	lcd.setCursor (0,0);
 	lcd.print ("SE2019 Sen.Temp.");

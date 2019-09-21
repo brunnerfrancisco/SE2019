@@ -30,7 +30,7 @@ ISR(TIMER2_OVF_vect)
 {
 	TCNT2 = 0;
 	count_timer++;
-	if(count_timer>9) // cuento 10 interrupciones de 1,024ms -> llamo a la funcion de callback cada 10,24ms
+	if(count_timer==10) // cuento 10 interrupciones de 1,024ms -> llamo a la funcion de callback cada 10,24ms
 	{
 		count_timer = 0;
 		fnqueue_add(timeout_signal);

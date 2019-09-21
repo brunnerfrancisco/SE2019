@@ -36,7 +36,8 @@ int pgViewportsHeight = 240;
 void setup() {
 
   //Se define el tamaño de la ventana de la aplicación... 
-  size(pgFunctionViewportWidth+pgControlViewportWidth, pgViewportsHeight);
+  //size(pgFunctionViewportWidth+pgControlViewportWidth, pgViewportsHeight);
+  size(600, 240);
   
   //Se inicializan los arreglos para almacenar las funciones...
   cantValues = pgFunctionViewportWidth;

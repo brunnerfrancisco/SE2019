@@ -28,9 +28,6 @@ void key_down_callback(void (* handler)(), int tecla)
 void adc_keyboard_process(uint16_t analogVal)
 {
 	int16_t k;
-	
-	//uint16_t analogVal = cfg_keyboard->value;
-	Serial.print("            keyboard adc ");Serial.println (analogVal);
 	for (k = 0; k < NRO_TECLAS; k++)
 	{
 		if (analogVal < adc_key_val[k])
@@ -51,21 +48,6 @@ void adc_keyboard_process(uint16_t analogVal)
 		}
 	;
 }
-/*
-
-void adc_keyboard_callback(void)
-{
-	contador++;
-	if(contador > 50)
-	{
-		Serial.println("");
-		Serial.println("llegue al callback del keyboard");
-		Serial.println("");
-		fnqueue_add(adc_keyboard_process);
-		contador = 0;
-	}
-}
-*/
 
 void keyboard_init(void)
 {

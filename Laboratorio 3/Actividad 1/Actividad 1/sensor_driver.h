@@ -9,6 +9,6 @@
 #ifndef SENSOR_DRIVER_H_
 #define SENSOR_DRIVER_H_
 
-int sensor_init(void (* callback_sensor)(int));
+int sensor_init(void (* callback_sensor)(float));
 
 #endif /* SENSOR_DRIVER_H_ */
