@@ -7,11 +7,11 @@ struct adc_cfg
 {
 	int channel;
 	void (*callback)();
-	int value;
+	uint16_t value;
 	int active;
 	int finish_convertion;
 };
 
-int adc_init(struct adc_cfg *cfg);
+int adc_init(adc_cfg *cfg);
 
 #endif /* ADC_DRIVER_H_ */

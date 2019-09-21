@@ -37,7 +37,7 @@ c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/..
 C:\Users\brunn\Documents\UNS\SE\libcore\libcoreArduinoUno.a(HardwareSerial.cpp.o)
                               main.o (_ZN14HardwareSerial5beginEmh)
 C:\Users\brunn\Documents\UNS\SE\libcore\libcoreArduinoUno.a(HardwareSerial0.cpp.o)
-                              adc_driver.o (Serial)
+                              keyboard.o (Serial)
 C:\Users\brunn\Documents\UNS\SE\libcore\libcoreArduinoUno.a(Print.cpp.o)
                               LiquidCrystal.o (_ZN5Print5writeEPKhj)
 C:\Users\brunn\Documents\UNS\SE\libcore\libcoreArduinoUno.a(abi.cpp.o)
@@ -53,7 +53,7 @@ C:\Users\brunn\Documents\UNS\SE\libcore\libcoreArduinoUno.a(hooks.c.o)
 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
                               C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega328p/avr5/crtatmega328p.o (exit)
 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_copy_data.o)
-                              adc_driver.o (__do_copy_data)
+                              keyboard.o (__do_copy_data)
 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_clear_bss.o)
                               adc_driver.o (__do_clear_bss)
 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_ctors.o)
@@ -63,13 +63,13 @@ c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/..
 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_tablejump2.o)
                               c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_ctors.o) (__tablejump2__)
 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a(fixunssfsi.o)
-                              C:\Users\brunn\AppData\Local\Temp\ccCcHYFf.ltrans0.ltrans.o (__fixunssfsi)
+                              C:\Users\brunn\AppData\Local\Temp\cctKIngQ.ltrans0.ltrans.o (__fixunssfsi)
 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a(unordsf2.o)
-                              C:\Users\brunn\AppData\Local\Temp\ccCcHYFf.ltrans0.ltrans.o (__unordsf2)
+                              C:\Users\brunn\AppData\Local\Temp\cctKIngQ.ltrans0.ltrans.o (__unordsf2)
 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_udivmodsi4.o)
-                              C:\Users\brunn\AppData\Local\Temp\ccCcHYFf.ltrans0.ltrans.o (__udivmodsi4)
+                              C:\Users\brunn\AppData\Local\Temp\cctKIngQ.ltrans0.ltrans.o (__udivmodsi4)
 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libc.a(abort.o)
-                              C:\Users\brunn\AppData\Local\Temp\ccCcHYFf.ltrans0.ltrans.o (abort)
+                              C:\Users\brunn\AppData\Local\Temp\cctKIngQ.ltrans0.ltrans.o (abort)
 
 Discarded input sections
 
@@ -133,69 +133,18 @@ Discarded input sections
  .text          0x00000000        0x0 main.o
  .data          0x00000000        0x0 main.o
  .bss           0x00000000        0x0 main.o
- .text._Z19process_temperaturei
-                0x00000000       0x92 main.o
- .bss._ZL6indice
-                0x00000000        0x2 main.o
  .text          0x00000000        0x0 sensor_driver.o
  .data          0x00000000        0x0 sensor_driver.o
  .bss           0x00000000        0x0 sensor_driver.o
- .text._Z23process_callback_sensorv
-                0x00000000       0x14 sensor_driver.o
- .text._Z14timer_callbackv
-                0x00000000        0x8 sensor_driver.o
- .rodata.str1.1
-                0x00000000       0x3f sensor_driver.o
- .text._Z19adc_sensor_callbackv
-                0x00000000       0x36 sensor_driver.o
- .text._Z11sensor_initPFviE
-                0x00000000       0x54 sensor_driver.o
- .bss.adc_sensor
-                0x00000000        0xa sensor_driver.o
- .bss.callback_sensor
-                0x00000000        0x2 sensor_driver.o
- .bss.store     0x00000000        0x1 sensor_driver.o
- .debug_info    0x00000000      0x43a sensor_driver.o
- .debug_abbrev  0x00000000      0x1d5 sensor_driver.o
- .debug_loc     0x00000000       0x4d sensor_driver.o
- .debug_aranges
-                0x00000000       0x38 sensor_driver.o
- .debug_ranges  0x00000000       0x28 sensor_driver.o
- .debug_line    0x00000000      0x29a sensor_driver.o
- .debug_str     0x00000000      0x44f sensor_driver.o
- .comment       0x00000000       0x31 sensor_driver.o
- .debug_frame   0x00000000       0x54 sensor_driver.o
  .text          0x00000000        0x0 timer.o
  .data          0x00000000        0x0 timer.o
  .bss           0x00000000        0x0 timer.o
- .text._Z10timer_initPFvvE
-                0x00000000       0x42 timer.o
  .text          0x00000000        0x0 timers.o
  .data          0x00000000        0x0 timers.o
  .bss           0x00000000        0x0 timers.o
- .text._Z14callback_timerv
-                0x00000000       0x6a timers.o
- .text._Z10timers_newPFvvE
-                0x00000000       0x70 timers.o
- .text._Z12timers_startP5Timerj
-                0x00000000       0x10 timers.o
  .text._Z11timers_stopP5Timer
                 0x00000000        0xc timers.o
- .bss._ZL9timers_SW
-                0x00000000       0x70 timers.o
- .bss._ZL5index
-                0x00000000        0x2 timers.o
- .debug_info    0x00000000      0x30b timers.o
- .debug_abbrev  0x00000000      0x161 timers.o
- .debug_loc     0x00000000      0x127 timers.o
- .debug_aranges
-                0x00000000       0x38 timers.o
- .debug_ranges  0x00000000       0x28 timers.o
- .debug_line    0x00000000      0x23b timers.o
- .debug_str     0x00000000      0x34b timers.o
- .comment       0x00000000       0x31 timers.o
- .debug_frame   0x00000000       0x74 timers.o
- .data          0x00000000        0x0 C:\Users\brunn\AppData\Local\Temp\ccCcHYFf.ltrans0.ltrans.o
+ .data          0x00000000        0x0 C:\Users\brunn\AppData\Local\Temp\cctKIngQ.ltrans0.ltrans.o
  .text          0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a(addsf3.o)
  .data          0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a(addsf3.o)
  .bss           0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a(addsf3.o)
@@ -344,8 +293,6 @@ Discarded input sections
  .text          0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_umulhisi3.o)
  .data          0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_umulhisi3.o)
  .bss           0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_umulhisi3.o)
- .text.libgcc.mul
-                0x00000000       0x1e c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_umulhisi3.o)
  .text.libgcc.div
                 0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_umulhisi3.o)
  .text.libgcc   0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_umulhisi3.o)
@@ -421,7 +368,7 @@ LOAD main.o
 LOAD sensor_driver.o
 LOAD timer.o
 LOAD timers.o
-LOAD C:\Users\brunn\AppData\Local\Temp\ccCcHYFf.ltrans0.ltrans.o
+LOAD C:\Users\brunn\AppData\Local\Temp\cctKIngQ.ltrans0.ltrans.o
 START GROUP
 LOAD c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a
 LOAD C:\Users\brunn\Documents\UNS\SE\libcore\libcoreArduinoUno.a
@@ -532,7 +479,7 @@ END GROUP
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000     0x1bf0
+.text           0x00000000     0x1d62
  *(.vectors)
  .vectors       0x00000000       0x68 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega328p/avr5/crtatmega328p.o
                 0x00000000                __vector_default
@@ -548,7 +495,7 @@ END GROUP
  *libprintf_flt.a:*(.progmem.data)
  *libc.a:*(.progmem.data)
  *(.progmem*)
- .progmem.data  0x00000068       0x50 C:\Users\brunn\AppData\Local\Temp\ccCcHYFf.ltrans0.ltrans.o
+ .progmem.data  0x00000068       0x50 C:\Users\brunn\AppData\Local\Temp\cctKIngQ.ltrans0.ltrans.o
                 0x000000b8                . = ALIGN (0x2)
  *(.jumptables)
  *(.jumptables*)
@@ -557,7 +504,7 @@ END GROUP
                 0x000000b8                __ctors_start = .
  *(.ctors)
  .ctors         0x000000b8        0x2 main.o
- .ctors         0x000000ba        0x2 C:\Users\brunn\AppData\Local\Temp\ccCcHYFf.ltrans0.ltrans.o
+ .ctors         0x000000ba        0x2 C:\Users\brunn\AppData\Local\Temp\cctKIngQ.ltrans0.ltrans.o
                 0x000000bc                __ctors_end = .
                 0x000000bc                __dtors_start = .
  *(.dtors)
@@ -617,220 +564,246 @@ END GROUP
                 0x0000010c                __vector_14
                 0x0000010c                __vector_10
                 0x0000010c                __vector_20
- .text          0x00000110      0x8c2 C:\Users\brunn\AppData\Local\Temp\ccCcHYFf.ltrans0.ltrans.o
-                0x0000011e                _ZN5Print5writeEPKhj
-                0x000003f6                digitalWrite
-                0x00000490                pinMode
-                0x00000508                delayMicroseconds
-                0x0000051e                __vector_16
-                0x000005b2                _ZN5Print7printlnEPKc
-                0x000005da                _ZN5Print5printEdi
-                0x00000792                _ZN5Print5printEii
-                0x0000082c                _ZN5Print7printlnEii
-                0x00000854                _ZN5Print5printEPKc
-                0x00000858                __vector_19
-                0x000008a4                __vector_18
-                0x00000908                _ZN14HardwareSerial5beginEmh
-                0x000009d2                . = ALIGN (0x2)
+ .text          0x00000110      0x848 C:\Users\brunn\AppData\Local\Temp\cctKIngQ.ltrans0.ltrans.o
+                0x00000110                _ZN5Print5writeEPKhj
+                0x000003e8                digitalWrite
+                0x00000482                pinMode
+                0x000004fa                delayMicroseconds
+                0x00000510                __vector_16
+                0x000005a4                _ZN5Print7printlnEji
+                0x000005e6                _ZN5Print7printlnEPKc
+                0x0000060e                _ZN5Print5printEdi
+                0x000007da                _ZN5Print5printEPKc
+                0x000007de                __vector_19
+                0x0000082a                __vector_18
+                0x0000088e                _ZN14HardwareSerial5beginEmh
+                0x00000958                . = ALIGN (0x2)
  *(.text.*)
  .text._Z11adc_processv
-                0x000009d2       0x8e adc_driver.o
-                0x000009d2                _Z11adc_processv
+                0x00000958       0x3e adc_driver.o
+                0x00000958                _Z11adc_processv
  .text._Z8adc_initP7adc_cfg
-                0x00000a60       0xe2 adc_driver.o
-                0x00000a60                _Z8adc_initP7adc_cfg
+                0x00000996       0x88 adc_driver.o
+                0x00000996                _Z8adc_initP7adc_cfg
  .text.__vector_21
-                0x00000b42       0xc2 adc_driver.o
-                0x00000b42                __vector_21
+                0x00000a1e       0xd6 adc_driver.o
+                0x00000a1e                __vector_21
  .text._Z14critical_beginv
-                0x00000c04       0x48 critical.o
-                0x00000c04                _Z14critical_beginv
+                0x00000af4       0x48 critical.o
+                0x00000af4                _Z14critical_beginv
  .text._Z12critical_endv
-                0x00000c4c       0x3c critical.o
-                0x00000c4c                _Z12critical_endv
+                0x00000b3c       0x3c critical.o
+                0x00000b3c                _Z12critical_endv
  .text._Z12fnqueue_initv
-                0x00000c88       0x10 fnqueue.o
-                0x00000c88                _Z12fnqueue_initv
+                0x00000b78       0x10 fnqueue.o
+                0x00000b78                _Z12fnqueue_initv
  .text._Z11fnqueue_runv
-                0x00000c98       0x58 fnqueue.o
-                0x00000c98                _Z11fnqueue_runv
+                0x00000b88       0x58 fnqueue.o
+                0x00000b88                _Z11fnqueue_runv
  .text._Z11fnqueue_addPFvvE
-                0x00000cf0       0x54 fnqueue.o
-                0x00000cf0                _Z11fnqueue_addPFvvE
+                0x00000be0       0x54 fnqueue.o
+                0x00000be0                _Z11fnqueue_addPFvvE
  .text._Z20adc_keyboard_processv
-                0x00000d44       0xb4 keyboard.o
-                0x00000d44                _Z20adc_keyboard_processv
- .text._Z21adc_keyboard_callbackv
-                0x00000df8       0x28 keyboard.o
-                0x00000df8                _Z21adc_keyboard_callbackv
+                0x00000c34       0xd8 keyboard.o
+                0x00000c34                _Z20adc_keyboard_processv
  .text._Z15key_up_callbackPFvvEi
-                0x00000e20       0x1a keyboard.o
-                0x00000e20                _Z15key_up_callbackPFvvEi
+                0x00000d0c       0x1a keyboard.o
+                0x00000d0c                _Z15key_up_callbackPFvvEi
  .text._Z17key_down_callbackPFvvEi
-                0x00000e3a       0x1a keyboard.o
-                0x00000e3a                _Z17key_down_callbackPFvvEi
+                0x00000d26       0x1a keyboard.o
+                0x00000d26                _Z17key_down_callbackPFvvEi
  .text._Z13keyboard_initv
-                0x00000e54       0x24 keyboard.o
-                0x00000e54                _Z13keyboard_initv
+                0x00000d40       0x30 keyboard.o
+                0x00000d40                _Z13keyboard_initv
  .text._ZN5Print17availableForWriteEv
-                0x00000e78        0x6 LiquidCrystal.o
-                0x00000e78                _ZN5Print17availableForWriteEv
+                0x00000d70        0x6 LiquidCrystal.o
+                0x00000d70                _ZN5Print17availableForWriteEv
  .text._ZN5Print5flushEv
-                0x00000e7e        0x2 LiquidCrystal.o
-                0x00000e7e                _ZN5Print5flushEv
+                0x00000d76        0x2 LiquidCrystal.o
+                0x00000d76                _ZN5Print5flushEv
  .text._ZN13LiquidCrystal11pulseEnableEv
-                0x00000e80       0x3c LiquidCrystal.o
-                0x00000e80                _ZN13LiquidCrystal11pulseEnableEv
+                0x00000d78       0x3c LiquidCrystal.o
+                0x00000d78                _ZN13LiquidCrystal11pulseEnableEv
  .text._ZN13LiquidCrystal10write4bitsEh
-                0x00000ebc       0x5a LiquidCrystal.o
-                0x00000ebc                _ZN13LiquidCrystal10write4bitsEh
+                0x00000db4       0x5a LiquidCrystal.o
+                0x00000db4                _ZN13LiquidCrystal10write4bitsEh
  .text._ZN13LiquidCrystal10write8bitsEh
-                0x00000f16       0x5a LiquidCrystal.o
-                0x00000f16                _ZN13LiquidCrystal10write8bitsEh
+                0x00000e0e       0x5a LiquidCrystal.o
+                0x00000e0e                _ZN13LiquidCrystal10write8bitsEh
  .text._ZN13LiquidCrystal4sendEhh
-                0x00000f70       0x58 LiquidCrystal.o
-                0x00000f70                _ZN13LiquidCrystal4sendEhh
+                0x00000e68       0x58 LiquidCrystal.o
+                0x00000e68                _ZN13LiquidCrystal4sendEhh
  .text._ZN13LiquidCrystal5clearEv
-                0x00000fc8       0x12 LiquidCrystal.o
-                0x00000fc8                _ZN13LiquidCrystal5clearEv
+                0x00000ec0       0x12 LiquidCrystal.o
+                0x00000ec0                _ZN13LiquidCrystal5clearEv
  .text._ZN13LiquidCrystal9setCursorEhh
-                0x00000fda       0x2a LiquidCrystal.o
-                0x00000fda                _ZN13LiquidCrystal9setCursorEhh
+                0x00000ed2       0x2a LiquidCrystal.o
+                0x00000ed2                _ZN13LiquidCrystal9setCursorEhh
  .text._ZN13LiquidCrystal7displayEv
-                0x00001004       0x14 LiquidCrystal.o
-                0x00001004                _ZN13LiquidCrystal7displayEv
+                0x00000efc       0x14 LiquidCrystal.o
+                0x00000efc                _ZN13LiquidCrystal7displayEv
  .text._ZN13LiquidCrystal5beginEhhh
-                0x00001018      0x176 LiquidCrystal.o
-                0x00001018                _ZN13LiquidCrystal5beginEhhh
+                0x00000f10      0x176 LiquidCrystal.o
+                0x00000f10                _ZN13LiquidCrystal5beginEhhh
  .text._ZN13LiquidCrystalC2Ehhhhhh
-                0x0000118e       0x42 LiquidCrystal.o
-                0x0000118e                _ZN13LiquidCrystalC1Ehhhhhh
-                0x0000118e                _ZN13LiquidCrystalC2Ehhhhhh
+                0x00001086       0x42 LiquidCrystal.o
+                0x00001086                _ZN13LiquidCrystalC1Ehhhhhh
+                0x00001086                _ZN13LiquidCrystalC2Ehhhhhh
  .text._ZN13LiquidCrystal5writeEh
-                0x000011d0        0xc LiquidCrystal.o
-                0x000011d0                _ZN13LiquidCrystal5writeEh
+                0x000010c8        0xc LiquidCrystal.o
+                0x000010c8                _ZN13LiquidCrystal5writeEh
+ .text._Z19process_temperaturei
+                0x000010d4       0x92 main.o
+                0x000010d4                _Z19process_temperaturei
  .text._Z8up_keyUpv
-                0x000011dc       0x1a main.o
-                0x000011dc                _Z8up_keyUpv
+                0x00001166       0x1a main.o
+                0x00001166                _Z8up_keyUpv
  .text._Z10up_keyDownv
-                0x000011f6       0x1a main.o
-                0x000011f6                _Z10up_keyDownv
+                0x00001180       0x1a main.o
+                0x00001180                _Z10up_keyDownv
  .text._Z11up_keyRightv
-                0x00001210       0x1a main.o
-                0x00001210                _Z11up_keyRightv
+                0x0000119a       0x1a main.o
+                0x0000119a                _Z11up_keyRightv
  .text._Z10up_keyLeftv
-                0x0000122a       0x1a main.o
-                0x0000122a                _Z10up_keyLeftv
+                0x000011b4       0x1a main.o
+                0x000011b4                _Z10up_keyLeftv
  .text._Z12up_keySelectv
-                0x00001244       0x1a main.o
-                0x00001244                _Z12up_keySelectv
+                0x000011ce       0x1a main.o
+                0x000011ce                _Z12up_keySelectv
  .text._Z14down_keySelectv
-                0x0000125e       0x1a main.o
-                0x0000125e                _Z14down_keySelectv
+                0x000011e8       0x1a main.o
+                0x000011e8                _Z14down_keySelectv
  .text._Z10down_keyUpv
-                0x00001278       0xac main.o
-                0x00001278                _Z10down_keyUpv
+                0x00001202       0xac main.o
+                0x00001202                _Z10down_keyUpv
  .text._Z12down_keyDownv
-                0x00001324       0xac main.o
-                0x00001324                _Z12down_keyDownv
+                0x000012ae       0xac main.o
+                0x000012ae                _Z12down_keyDownv
  .text._Z12down_keyLeftv
-                0x000013d0       0x42 main.o
-                0x000013d0                _Z12down_keyLeftv
+                0x0000135a       0x42 main.o
+                0x0000135a                _Z12down_keyLeftv
  .text._Z13down_keyRightv
-                0x00001412       0x9a main.o
-                0x00001412                _Z13down_keyRightv
- .text.setup    0x000014ac       0xd2 main.o
-                0x000014ac                setup
- .text.loop     0x0000157e        0x6 main.o
-                0x0000157e                loop
+                0x0000139c       0x9a main.o
+                0x0000139c                _Z13down_keyRightv
+ .text.setup    0x00001436       0xda main.o
+                0x00001436                setup
+ .text.loop     0x00001510        0x6 main.o
+                0x00001510                loop
  .text._GLOBAL__sub_I_lcd
-                0x00001584       0x2e main.o
+                0x00001516       0x2e main.o
+ .text._Z23process_callback_sensorv
+                0x00001544       0x1c sensor_driver.o
+                0x00001544                _Z23process_callback_sensorv
+ .text._Z14timer_callbackv
+                0x00001560        0x8 sensor_driver.o
+                0x00001560                _Z14timer_callbackv
+ .text._Z19adc_sensor_callbackv
+                0x00001568       0x22 sensor_driver.o
+                0x00001568                _Z19adc_sensor_callbackv
+ .text._Z11sensor_initPFviE
+                0x0000158a       0x50 sensor_driver.o
+                0x0000158a                _Z11sensor_initPFviE
+ .text._Z10timer_initPFvvE
+                0x000015da       0x42 timer.o
+                0x000015da                _Z10timer_initPFvvE
  .text.__vector_9
-                0x000015b2       0x7a timer.o
-                0x000015b2                __vector_9
- .text.startup  0x0000162c       0xee C:\Users\brunn\AppData\Local\Temp\ccCcHYFf.ltrans0.ltrans.o
-                0x0000162c                main
+                0x0000161c       0x7a timer.o
+                0x0000161c                __vector_9
+ .text._Z14callback_timerv
+                0x00001696       0x6a timers.o
+                0x00001696                _Z14callback_timerv
+ .text._Z10timers_newPFvvE
+                0x00001700       0x70 timers.o
+                0x00001700                _Z10timers_newPFvvE
+ .text._Z12timers_startP5Timerj
+                0x00001770       0x10 timers.o
+                0x00001770                _Z12timers_startP5Timerj
+ .text.startup  0x00001780       0xee C:\Users\brunn\AppData\Local\Temp\cctKIngQ.ltrans0.ltrans.o
+                0x00001780                main
  .text.avr-libc.fplib
-                0x0000171a        0xe c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a(addsf3.o)
-                0x0000171a                __subsf3
-                0x0000171c                __addsf3
+                0x0000186e        0xe c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a(addsf3.o)
+                0x0000186e                __subsf3
+                0x00001870                __addsf3
  .text.avr-libc.fplib
-                0x00001728       0xcc c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a(addsf3x.o)
-                0x0000174a                __addsf3x
+                0x0000187c       0xcc c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a(addsf3x.o)
+                0x0000189e                __addsf3x
  .text.avr-libc.fplib
-                0x000017f4        0xa c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a(cmpsf2.o)
-                0x000017f4                __nesf2
-                0x000017f4                __eqsf2
-                0x000017f4                __cmpsf2
-                0x000017f4                __ltsf2
-                0x000017f4                __lesf2
+                0x00001948        0xa c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a(cmpsf2.o)
+                0x00001948                __nesf2
+                0x00001948                __eqsf2
+                0x00001948                __cmpsf2
+                0x00001948                __ltsf2
+                0x00001948                __lesf2
  .text.avr-libc.fplib
-                0x000017fe        0x8 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a(divsf3.o)
-                0x000017fe                __divsf3
+                0x00001952        0x8 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a(divsf3.o)
+                0x00001952                __divsf3
  .text.avr-libc.fplib
-                0x00001806       0xdc c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a(divsf3x.o)
-                0x00001826                __divsf3x
-                0x0000182c                __divsf3_pse
+                0x0000195a       0xdc c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a(divsf3x.o)
+                0x0000197a                __divsf3x
+                0x00001980                __divsf3_pse
  .text.avr-libc.fplib
-                0x000018e2       0x7a c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a(floatsisf.o)
-                0x000018e2                __floatunsisf
-                0x000018e6                __floatsisf
+                0x00001a36       0x7a c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a(floatsisf.o)
+                0x00001a36                __floatunsisf
+                0x00001a3a                __floatsisf
  .text.avr-libc.fplib
-                0x0000195c       0x48 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a(fp_cmp.o)
-                0x0000195c                __fp_cmp
+                0x00001ab0       0x48 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a(fp_cmp.o)
+                0x00001ab0                __fp_cmp
  .text.avr-libc.fplib
-                0x000019a4        0xc c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a(fp_inf.o)
-                0x000019a4                __fp_inf
+                0x00001af8        0xc c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a(fp_inf.o)
+                0x00001af8                __fp_inf
  .text.avr-libc.fplib
-                0x000019b0        0x6 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a(fp_nan.o)
-                0x000019b0                __fp_nan
+                0x00001b04        0x6 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a(fp_nan.o)
+                0x00001b04                __fp_nan
  .text.avr-libc.fplib
-                0x000019b6        0xe c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a(fp_pscA.o)
-                0x000019b6                __fp_pscA
+                0x00001b0a        0xe c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a(fp_pscA.o)
+                0x00001b0a                __fp_pscA
  .text.avr-libc.fplib
-                0x000019c4        0xe c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a(fp_pscB.o)
-                0x000019c4                __fp_pscB
+                0x00001b18        0xe c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a(fp_pscB.o)
+                0x00001b18                __fp_pscB
  .text.avr-libc.fplib
-                0x000019d2       0x22 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a(fp_round.o)
-                0x000019d2                __fp_round
+                0x00001b26       0x22 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a(fp_round.o)
+                0x00001b26                __fp_round
  .text.avr-libc.fplib
-                0x000019f4       0x44 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a(fp_split3.o)
-                0x000019f4                __fp_split3
-                0x00001a04                __fp_splitA
+                0x00001b48       0x44 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a(fp_split3.o)
+                0x00001b48                __fp_split3
+                0x00001b58                __fp_splitA
  .text.avr-libc.fplib
-                0x00001a38        0xe c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a(fp_zero.o)
-                0x00001a38                __fp_zero
-                0x00001a3a                __fp_szero
+                0x00001b8c        0xe c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a(fp_zero.o)
+                0x00001b8c                __fp_zero
+                0x00001b8e                __fp_szero
  .text.avr-libc.fplib
-                0x00001a46        0xa c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a(gesf2.o)
-                0x00001a46                __gesf2
-                0x00001a46                __gtsf2
+                0x00001b9a        0xa c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a(gesf2.o)
+                0x00001b9a                __gesf2
+                0x00001b9a                __gtsf2
  .text.avr-libc.fplib
-                0x00001a50        0x8 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a(mulsf3.o)
-                0x00001a50                __mulsf3
+                0x00001ba4        0x8 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a(mulsf3.o)
+                0x00001ba4                __mulsf3
  .text.avr-libc.fplib
-                0x00001a58       0xd2 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a(mulsf3x.o)
-                0x00001a76                __mulsf3x
-                0x00001a7c                __mulsf3_pse
- .text.libgcc   0x00001b2a        0xc c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_tablejump2.o)
-                0x00001b2a                __tablejump2__
+                0x00001bac       0xd2 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a(mulsf3x.o)
+                0x00001bca                __mulsf3x
+                0x00001bd0                __mulsf3_pse
+ .text.libgcc.mul
+                0x00001c7e       0x1e c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_umulhisi3.o)
+                0x00001c7e                __umulhisi3
+ .text.libgcc   0x00001c9c        0xc c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_tablejump2.o)
+                0x00001c9c                __tablejump2__
  .text.avr-libc.fplib
-                0x00001b36       0x5e c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a(fixunssfsi.o)
-                0x00001b36                __fixunssfsi
+                0x00001ca8       0x5e c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a(fixunssfsi.o)
+                0x00001ca8                __fixunssfsi
  .text.avr-libc.fplib
-                0x00001b94        0xa c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a(unordsf2.o)
-                0x00001b94                __unordsf2
+                0x00001d06        0xa c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a(unordsf2.o)
+                0x00001d06                __unordsf2
  .text.libgcc.div
-                0x00001b9e       0x44 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_udivmodsi4.o)
-                0x00001b9e                __udivmodsi4
+                0x00001d10       0x44 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_udivmodsi4.o)
+                0x00001d10                __udivmodsi4
  .text.avr-libc
-                0x00001be2        0xa c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libc.a(abort.o)
-                0x00001be2                abort
-                0x00001bec                . = ALIGN (0x2)
+                0x00001d54        0xa c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libc.a(abort.o)
+                0x00001d54                abort
+                0x00001d5e                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x00001bec        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
-                0x00001bec                _exit
-                0x00001bec                exit
+ .fini9         0x00001d5e        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
+                0x00001d5e                _exit
+                0x00001d5e                exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -849,11 +822,11 @@ END GROUP
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x00001bec        0x4 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
+ .fini0         0x00001d5e        0x4 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
  *(.fini0)
-                0x00001bf0                _etext = .
+                0x00001d62                _etext = .
 
-.data           0x00800100       0xb6 load address 0x00001bf0
+.data           0x00800100       0xd8 load address 0x00001d62
                 0x00800100                PROVIDE (__data_start, .)
  *(.data)
  *(.data*)
@@ -864,78 +837,91 @@ END GROUP
                 0x0080010a        0x2 keyboard.o
  *(.gnu.linkonce.d*)
  *(.rodata)
- .rodata        0x0080010c       0x12 C:\Users\brunn\AppData\Local\Temp\ccCcHYFf.ltrans0.ltrans.o
+ .rodata        0x0080010c       0x12 C:\Users\brunn\AppData\Local\Temp\cctKIngQ.ltrans0.ltrans.o
  *(.rodata*)
  .rodata.str1.1
-                0x0080011e       0x1c adc_driver.o
+                0x0080011e       0x1a keyboard.o
  .rodata._ZTV13LiquidCrystal
-                0x0080013a        0xc LiquidCrystal.o
-                0x0080013a                _ZTV13LiquidCrystal
+                0x00800138        0xc LiquidCrystal.o
+                0x00800138                _ZTV13LiquidCrystal
  .rodata.str1.1
-                0x00800146       0x61 main.o
+                0x00800144       0x61 main.o
  .rodata.str1.1
-                0x008001a7        0xf C:\Users\brunn\AppData\Local\Temp\ccCcHYFf.ltrans0.ltrans.o
+                0x008001a5       0x23 sensor_driver.o
+ .rodata.str1.1
+                0x008001c8        0xf C:\Users\brunn\AppData\Local\Temp\cctKIngQ.ltrans0.ltrans.o
  *(.gnu.linkonce.r*)
-                0x008001b6                . = ALIGN (0x2)
-                0x008001b6                _edata = .
-                0x008001b6                PROVIDE (__data_end, .)
+                0x008001d8                . = ALIGN (0x2)
+ *fill*         0x008001d7        0x1 
+                0x008001d8                _edata = .
+                0x008001d8                PROVIDE (__data_end, .)
 
-.bss            0x008001b6      0x2dd
-                0x008001b6                PROVIDE (__bss_start, .)
+.bss            0x008001d8      0x31a
+                0x008001d8                PROVIDE (__bss_start, .)
  *(.bss)
- .bss           0x008001b6       0xa6 C:\Users\brunn\AppData\Local\Temp\ccCcHYFf.ltrans0.ltrans.o
-                0x008001b6                Serial
+ .bss           0x008001d8       0xa6 C:\Users\brunn\AppData\Local\Temp\cctKIngQ.ltrans0.ltrans.o
+                0x008001d8                Serial
  *(.bss*)
  .bss.adc_channel_cfg
-                0x0080025c       0x3c adc_driver.o
-                0x0080025c                adc_channel_cfg
- .bss._ZL13cant_channels
-                0x00800298        0x2 adc_driver.o
+                0x0080027e        0xc adc_driver.o
+                0x0080027e                adc_channel_cfg
  .bss._ZL10converting
-                0x0080029a        0x2 adc_driver.o
+                0x0080028a        0x2 adc_driver.o
  .bss._ZL14actual_channel
-                0x0080029c        0x2 adc_driver.o
+                0x0080028c        0x2 adc_driver.o
  .bss._ZL11anidamiento
-                0x0080029e        0x2 critical.o
+                0x0080028e        0x2 critical.o
  .bss._ZL13fnqueue_count
-                0x008002a0        0x1 fnqueue.o
+                0x00800290        0x1 fnqueue.o
  .bss._ZL12fnqueue_tail
-                0x008002a1        0x1 fnqueue.o
+                0x00800291        0x1 fnqueue.o
  .bss._ZL12fnqueue_head
-                0x008002a2        0x1 fnqueue.o
+                0x00800292        0x1 fnqueue.o
  .bss._ZL17fnqueue_functions
-                0x008002a3       0x20 fnqueue.o
- .bss._ZL8contador
-                0x008002c3        0x2 keyboard.o
+                0x00800293       0x20 fnqueue.o
  .bss.cfg_keyboard
-                0x008002c5        0xa keyboard.o
-                0x008002c5                cfg_keyboard
+                0x008002b3        0x2 keyboard.o
+                0x008002b3                cfg_keyboard
  .bss.teclas_callback
-                0x008002cf       0x14 keyboard.o
-                0x008002cf                teclas_callback
+                0x008002b5       0x14 keyboard.o
+                0x008002b5                teclas_callback
+ .bss._ZL6indice
+                0x008002c9        0x2 main.o
  .bss.arregloTemperaturas
-                0x008002e3      0x190 main.o
-                0x008002e3                arregloTemperaturas
+                0x008002cb      0x190 main.o
+                0x008002cb                arregloTemperaturas
  .bss.Temperatura
-                0x00800473        0x4 main.o
-                0x00800473                Temperatura
- .bss.lcd       0x00800477       0x18 main.o
-                0x00800477                lcd
+                0x0080045b        0x4 main.o
+                0x0080045b                Temperatura
+ .bss.lcd       0x0080045f       0x18 main.o
+                0x0080045f                lcd
+ .bss.adc_sensor
+                0x00800477        0x2 sensor_driver.o
+                0x00800477                adc_sensor
+ .bss.callback_sensor
+                0x00800479        0x2 sensor_driver.o
+                0x00800479                callback_sensor
+ .bss.store     0x0080047b        0x1 sensor_driver.o
+                0x0080047b                store
  .bss.timeout_signal
-                0x0080048f        0x2 timer.o
-                0x0080048f                timeout_signal
+                0x0080047c        0x2 timer.o
+                0x0080047c                timeout_signal
  .bss._ZL11count_timer
-                0x00800491        0x2 timer.o
+                0x0080047e        0x2 timer.o
+ .bss._ZL9timers_SW
+                0x00800480       0x70 timers.o
+ .bss._ZL5index
+                0x008004f0        0x2 timers.o
  *(COMMON)
-                0x00800493                PROVIDE (__bss_end, .)
-                0x00001bf0                __data_load_start = LOADADDR (.data)
-                0x00001ca6                __data_load_end = (__data_load_start + SIZEOF (.data))
+                0x008004f2                PROVIDE (__bss_end, .)
+                0x00001d62                __data_load_start = LOADADDR (.data)
+                0x00001e3a                __data_load_end = (__data_load_start + SIZEOF (.data))
 
-.noinit         0x00800493        0x0
+.noinit         0x008004f2        0x0
                 [!provide]                PROVIDE (__noinit_start, .)
  *(.noinit*)
                 [!provide]                PROVIDE (__noinit_end, .)
-                0x00800493                _end = .
+                0x008004f2                _end = .
                 [!provide]                PROVIDE (__heap_start, .)
 
 .eeprom         0x00810000        0x0
@@ -984,8 +970,10 @@ END GROUP
  .comment       0x00000030       0x31 keyboard.o
  .comment       0x00000030       0x31 LiquidCrystal.o
  .comment       0x00000030       0x31 main.o
+ .comment       0x00000030       0x31 sensor_driver.o
  .comment       0x00000030       0x31 timer.o
- .comment       0x00000030       0x31 C:\Users\brunn\AppData\Local\Temp\ccCcHYFf.ltrans0.ltrans.o
+ .comment       0x00000030       0x31 timers.o
+ .comment       0x00000030       0x31 C:\Users\brunn\AppData\Local\Temp\cctKIngQ.ltrans0.ltrans.o
 
 .note.gnu.avr.deviceinfo
                 0x00000000       0x40
@@ -1007,7 +995,7 @@ END GROUP
 .debug_sfnames
  *(.debug_sfnames)
 
-.debug_aranges  0x00000000      0x280
+.debug_aranges  0x00000000      0x2e8
  *(.debug_aranges)
  .debug_aranges
                 0x00000000       0x30 adc_driver.o
@@ -1016,86 +1004,104 @@ END GROUP
  .debug_aranges
                 0x00000058       0x30 fnqueue.o
  .debug_aranges
-                0x00000088       0x40 keyboard.o
+                0x00000088       0x38 keyboard.o
  .debug_aranges
-                0x000000c8      0x108 LiquidCrystal.o
+                0x000000c0      0x108 LiquidCrystal.o
  .debug_aranges
-                0x000001d0       0x88 main.o
+                0x000001c8       0x88 main.o
  .debug_aranges
-                0x00000258       0x28 timer.o
+                0x00000250       0x38 sensor_driver.o
+ .debug_aranges
+                0x00000288       0x28 timer.o
+ .debug_aranges
+                0x000002b0       0x38 timers.o
 
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x00000000     0x3dd0
+.debug_info     0x00000000     0x4400
  *(.debug_info .gnu.linkonce.wi.*)
  .debug_info    0x00000000      0x5f4 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega328p/avr5/crtatmega328p.o
- .debug_info    0x000005f4      0x420 adc_driver.o
- .debug_info    0x00000a14       0xd9 critical.o
- .debug_info    0x00000aed      0x1b8 fnqueue.o
- .debug_info    0x00000ca5      0x3b5 keyboard.o
- .debug_info    0x0000105a     0x1e89 LiquidCrystal.o
- .debug_info    0x00002ee3      0xcc7 main.o
- .debug_info    0x00003baa      0x226 timer.o
+ .debug_info    0x000005f4      0x2ca adc_driver.o
+ .debug_info    0x000008be       0xd9 critical.o
+ .debug_info    0x00000997      0x1b8 fnqueue.o
+ .debug_info    0x00000b4f      0x421 keyboard.o
+ .debug_info    0x00000f70     0x1e89 LiquidCrystal.o
+ .debug_info    0x00002df9      0xcf4 main.o
+ .debug_info    0x00003aed      0x3e2 sensor_driver.o
+ .debug_info    0x00003ecf      0x226 timer.o
+ .debug_info    0x000040f5      0x30b timers.o
 
-.debug_abbrev   0x00000000     0x1157
+.debug_abbrev   0x00000000     0x14a1
  *(.debug_abbrev)
  .debug_abbrev  0x00000000      0x5a2 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega328p/avr5/crtatmega328p.o
- .debug_abbrev  0x000005a2      0x1ed adc_driver.o
- .debug_abbrev  0x0000078f       0x6a critical.o
- .debug_abbrev  0x000007f9       0xfb fnqueue.o
- .debug_abbrev  0x000008f4      0x174 keyboard.o
- .debug_abbrev  0x00000a68      0x35e LiquidCrystal.o
- .debug_abbrev  0x00000dc6      0x282 main.o
- .debug_abbrev  0x00001048      0x10f timer.o
+ .debug_abbrev  0x000005a2      0x18f adc_driver.o
+ .debug_abbrev  0x00000731       0x6a critical.o
+ .debug_abbrev  0x0000079b       0xfb fnqueue.o
+ .debug_abbrev  0x00000896      0x1db keyboard.o
+ .debug_abbrev  0x00000a71      0x35e LiquidCrystal.o
+ .debug_abbrev  0x00000dcf      0x282 main.o
+ .debug_abbrev  0x00001051      0x1e0 sensor_driver.o
+ .debug_abbrev  0x00001231      0x10f timer.o
+ .debug_abbrev  0x00001340      0x161 timers.o
 
-.debug_line     0x00000000     0x1900
+.debug_line     0x00000000     0x1d93
  *(.debug_line .debug_line.* .debug_line_end)
  .debug_line    0x00000000      0x133 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega328p/avr5/crtatmega328p.o
- .debug_line    0x00000133      0x306 adc_driver.o
- .debug_line    0x00000439      0x11d critical.o
- .debug_line    0x00000556      0x152 fnqueue.o
- .debug_line    0x000006a8      0x265 keyboard.o
- .debug_line    0x0000090d      0x945 LiquidCrystal.o
- .debug_line    0x00001252      0x4df main.o
- .debug_line    0x00001731      0x1cf timer.o
+ .debug_line    0x00000133      0x24b adc_driver.o
+ .debug_line    0x0000037e      0x11d critical.o
+ .debug_line    0x0000049b      0x152 fnqueue.o
+ .debug_line    0x000005ed      0x2cb keyboard.o
+ .debug_line    0x000008b8      0x945 LiquidCrystal.o
+ .debug_line    0x000011fd      0x4f8 main.o
+ .debug_line    0x000016f5      0x294 sensor_driver.o
+ .debug_line    0x00001989      0x1cf timer.o
+ .debug_line    0x00001b58      0x23b timers.o
 
-.debug_frame    0x00000000      0x730
+.debug_frame    0x00000000      0x7d8
  *(.debug_frame)
- .debug_frame   0x00000000       0xb8 adc_driver.o
- .debug_frame   0x000000b8       0x34 critical.o
- .debug_frame   0x000000ec       0x50 fnqueue.o
- .debug_frame   0x0000013c       0x70 keyboard.o
- .debug_frame   0x000001ac      0x358 LiquidCrystal.o
- .debug_frame   0x00000504      0x1a4 main.o
- .debug_frame   0x000006a8       0x88 timer.o
+ .debug_frame   0x00000000       0xa0 adc_driver.o
+ .debug_frame   0x000000a0       0x34 critical.o
+ .debug_frame   0x000000d4       0x50 fnqueue.o
+ .debug_frame   0x00000124       0x68 keyboard.o
+ .debug_frame   0x0000018c      0x358 LiquidCrystal.o
+ .debug_frame   0x000004e4      0x1a4 main.o
+ .debug_frame   0x00000688       0x54 sensor_driver.o
+ .debug_frame   0x000006dc       0x88 timer.o
+ .debug_frame   0x00000764       0x74 timers.o
 
-.debug_str      0x00000000     0x1100
+.debug_str      0x00000000     0x1248
  *(.debug_str)
  .debug_str     0x00000000      0x208 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega328p/avr5/crtatmega328p.o
- .debug_str     0x00000208      0x375 adc_driver.o
-                                0x3d4 (size before relaxing)
- .debug_str     0x0000057d       0x2e critical.o
+ .debug_str     0x00000208      0x2ab adc_driver.o
+                                0x303 (size before relaxing)
+ .debug_str     0x000004b3       0x70 critical.o
                                 0x214 (size before relaxing)
- .debug_str     0x000005ab       0x93 fnqueue.o
+ .debug_str     0x00000523       0x93 fnqueue.o
                                 0x2b1 (size before relaxing)
- .debug_str     0x0000063e      0x163 keyboard.o
-                                0x3fb (size before relaxing)
- .debug_str     0x000007a1      0x67f LiquidCrystal.o
+ .debug_str     0x000005b6      0x197 keyboard.o
+                                0x417 (size before relaxing)
+ .debug_str     0x0000074d      0x67f LiquidCrystal.o
                                 0x8d5 (size before relaxing)
- .debug_str     0x00000e20      0x28c main.o
-                                0x61b (size before relaxing)
- .debug_str     0x000010ac       0x54 timer.o
+ .debug_str     0x00000dcc      0x2a4 main.o
+                                0x63c (size before relaxing)
+ .debug_str     0x00001070      0x107 sensor_driver.o
+                                0x429 (size before relaxing)
+ .debug_str     0x00001177       0x54 timer.o
                                 0x2d2 (size before relaxing)
+ .debug_str     0x000011cb       0x7d timers.o
+                                0x34b (size before relaxing)
 
-.debug_loc      0x00000000     0x259f
+.debug_loc      0x00000000     0x26b0
  *(.debug_loc)
- .debug_loc     0x00000000      0x1de adc_driver.o
- .debug_loc     0x000001de       0xc3 fnqueue.o
- .debug_loc     0x000002a1      0x100 keyboard.o
- .debug_loc     0x000003a1     0x1d65 LiquidCrystal.o
- .debug_loc     0x00002106      0x368 main.o
- .debug_loc     0x0000246e      0x131 timer.o
+ .debug_loc     0x00000000      0x17e adc_driver.o
+ .debug_loc     0x0000017e       0xc3 fnqueue.o
+ .debug_loc     0x00000241       0xfd keyboard.o
+ .debug_loc     0x0000033e     0x1d65 LiquidCrystal.o
+ .debug_loc     0x000020a3      0x368 main.o
+ .debug_loc     0x0000240b       0x4d sensor_driver.o
+ .debug_loc     0x00002458      0x131 timer.o
+ .debug_loc     0x00002589      0x127 timers.o
 
 .debug_macinfo
  *(.debug_macinfo)
@@ -1115,15 +1121,17 @@ END GROUP
 .debug_pubtypes
  *(.debug_pubtypes)
 
-.debug_ranges   0x00000000      0x210
+.debug_ranges   0x00000000      0x258
  *(.debug_ranges)
  .debug_ranges  0x00000000       0x20 adc_driver.o
  .debug_ranges  0x00000020       0x18 critical.o
  .debug_ranges  0x00000038       0x20 fnqueue.o
- .debug_ranges  0x00000058       0x30 keyboard.o
- .debug_ranges  0x00000088       0xf8 LiquidCrystal.o
- .debug_ranges  0x00000180       0x78 main.o
- .debug_ranges  0x000001f8       0x18 timer.o
+ .debug_ranges  0x00000058       0x28 keyboard.o
+ .debug_ranges  0x00000080       0xf8 LiquidCrystal.o
+ .debug_ranges  0x00000178       0x78 main.o
+ .debug_ranges  0x000001f0       0x28 sensor_driver.o
+ .debug_ranges  0x00000218       0x18 timer.o
+ .debug_ranges  0x00000230       0x28 timers.o
 
 .debug_macro
  *(.debug_macro)

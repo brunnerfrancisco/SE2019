@@ -10,86 +10,84 @@
 
 static int volatile actual_channel = 0;
 static int converting = 0;
-static int cant_channels = 0;
 
-struct adc_cfg adc_channel_cfg[MAX_CHANNELS];
+struct adc_cfg *adc_channel_cfg[MAX_CHANNELS];
 
 int adc_init(struct adc_cfg *cfg)
 {
-	//Configuro todo para el canal inicial
-	critical_begin ();
-	int ADC_channel = cfg->channel;
-	if(ADC_channel>-1 && ADC_channel<MAX_CHANNELS)
+
+	adc_channel_cfg[ cfg->channel ] = cfg;
+	
+	//La entrada analogica se selecciona escribiendo MUX bits en ADMUX
+	//El enable se hace desde el ADC enable bit ADEN en ADCSRA
+	//Para hacer que interrumpa el adc que se trigeree cuando una conversion se completa
+	
+	adc_channel_cfg[ cfg->channel ]->active = 1;
+
+	if(!converting)
 	{
-		adc_channel_cfg[cfg->channel] = *cfg;
-		adc_channel_cfg[cfg->channel].active = true;
 
-		// si no estoy convirtiendo
-		if(!converting)
-		{
-
-			actual_channel = ADC_channel;
-			ADMUX |= (ADC_channel); //inicializar MUX0..2 segun el canal ingresado
-
-			// si es el primer canal configuro el ADC con la configuracion general
-			if(cant_channels == 0)
-			{
-				//ADCSRB = 0; // este registro no lo deberia tocar segun el datasheet
-				
-				ADCSRA |= (1<<ADEN); // habilito el adc "lo prendo" segun el datasheet
-				ADCSRA |= (1<<ADPS2) | (1<<ADPS1) | (1<<ADPS0); // estos bit setean el prescaler lo pongo en 16
-				ADCSRA |= (1<< ADIE); // este bit activa la interrupcion por conversion completa ISR(ADC_Vect)
-				ADCSRA |= ~(1<<ADATE); // este bit en 0 desactiva el AutoTrigger segun el datasheet
-				ADCSRA |= (1<<ADSC); // este es el bit que pone a funcionar el ADC segun el datasheet
-			}
-			converting = 1;
-		}
-		cant_channels++;
-		critical_end ();
-		return 1;
+		cli();
+		ADCSRA |= (1 << ADPS2) | (1 << ADPS1) | (1 << ADPS0);//  prescaler al máximo. para modular velocidad de muestreo
+			
+		ADMUX |= (1 << REFS0);      // voltaje referencia.
+		ADMUX &= ~(1 << ADLAR);     // left aligned (sheet: 24.9.3.1/2).
+			
+		ADCSRA &= ~(1 << ADATE);     // deshabilitar auto trigger.
+			
+		ADCSRA |= (1 << ADEN);      // enable ADC.
+		ADCSRA |= (1 << ADIE);
+		// habilitar que el conversor interrumpa cuando haya terminado una conversion
+		ADMUX &= ~((1 << MUX3) | (1 << MUX2) | (1 << MUX1) | (1 << MUX0));//Canal predefinido 0
+			
+		ADCSRA |= (1 << ADSC); 
+		// habilito las interrupciones
+		sei();
+		converting = 1;
 	}
-	else
-		return 0;
+	return 1;
 }
 
 void adc_process()
 {
 	// Para cada canal en el adc_channel_cfg llamo a la funcion de callback que haya terminado la conversion
-	critical_begin();
-	int i = 0;
-	for(i=0; i<MAX_CHANNELS; i++)
+	for(int i=0; i<MAX_CHANNELS; i++)
 	{
-		if(adc_channel_cfg[i].active)
+		if (adc_channel_cfg[i]->finish_convertion)
 		{
-			if (adc_channel_cfg[i].finish_convertion)
-			{
-				Serial.print("leo en el canal ");Serial.print (adc_channel_cfg[i].channel);
-				Serial.print("value adc ");Serial.println (adc_channel_cfg[i].value);
-				fnqueue_add (adc_channel_cfg[i].callback);
-				adc_channel_cfg[i].finish_convertion = 0;
-			}
+			//Serial.print("leo en el canal ");Serial.print (adc_channel_cfg[i]->channel);
+			//Serial.print(" value adc ");Serial.println (adc_channel_cfg[i]->value);
+			adc_channel_cfg[i]->callback();
+			adc_channel_cfg[i]->finish_convertion = 0;
 		}
 	}
-	critical_end();
 }
 
 ISR(ADC_vect)
 {
-	adc_channel_cfg[actual_channel].value = ADC;//ADCH<<8 | ADCL;
-	adc_channel_cfg[actual_channel].finish_convertion = 1;
+	uint16_t value_adc = (ADCL) | (ADCH << 8);
+	adc_channel_cfg[actual_channel]->value = value_adc;
+	adc_channel_cfg[actual_channel]->finish_convertion = 1;
+
+	if(!actual_channel)
+	{
+		actual_channel = 1;
+
+		ADMUX &= ~((1 << MUX3) | (1 << MUX2) | (1 << MUX1) | (1 << MUX0));
+		
+		ADMUX |= 1<<MUX0;
+	}
+	else
+	{
+		actual_channel = 0;
+
+		ADMUX &= ~((1 << MUX3) | (1 << MUX2) | (1 << MUX1) | (1 << MUX0));
+	}
 
 	fnqueue_add (adc_process);
 
-	/*// buscar el proximo canal
-	if(actual_channel == 0)
-		actual_channel = 1;
-	else
-		actual_channel = 0;*/
+	ADCSRA |= (1 << ADSC); //Poner el ADC a convertir
 
-	ADMUX = (actual_channel); // seteo el proximo canal a convertir
 
-	ADMUX |= (1<<MUX3);
-
-	ADCSRA |= (1<<ADSC); //Poner el ADC a convertir
 }
 

@@ -148,7 +148,7 @@ void setup()
 	
 	keyboard_init();
 
-	//sensor_init(process_temperature);
+	sensor_init(process_temperature);
 	
 	// callbacks del keyboard
 	key_up_callback(up_keyUp, TECLAUP);
