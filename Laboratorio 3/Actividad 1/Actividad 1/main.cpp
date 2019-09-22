@@ -20,9 +20,15 @@ const uint8_t numCols = 16;
 
 float actual = 0;
 float temperatures[MAX_TEMP];
+
+float minimum = 0;
+float maximum = 0;
+float average = 0;
+
 static int index = 0;
 static uint16_t cant_samples = 0;
 static bool promflag = false;
+
 
 void up_keyUp()
 {
@@ -35,18 +41,8 @@ void down_keyUp()
 	lcd.setCursor(0,1);
 	lcd.print("MAX. C° ");
 	
-	float mayor = temperatures[0];
-	int16_t i;
-	for (i = 1; i < MAX_TEMP ; i++)
-	{
-		if (temperatures[i] > 0.0 && mayor < temperatures[i])
-		{
-			mayor = temperatures[i];
-		}
-	}
-	
 	lcd.setCursor(11,1);
-	lcd.print(mayor);
+	lcd.print(maximum);
 	
 }
 
@@ -61,18 +57,8 @@ void down_keyDown()
 	lcd.setCursor(0,1);
 	lcd.print("MIN. C° ");
 	
-	float minimo = temperatures[0];
-	int16_t i;
-	for (i = 1; i < MAX_TEMP ; i++)
-	{
-		if (temperatures[i] > 0.0 && minimo > temperatures[i])
-		{
-			minimo = temperatures[i];
-		}
-	}
-	
 	lcd.setCursor(11,1);
-	lcd.print(minimo);
+	lcd.print(minimum);
 }
 
 void up_keyRight()
@@ -85,29 +71,6 @@ void down_keyRight()
 {
 	lcd.setCursor(0,1);
 	lcd.print("PROM. C° ");
-	Serial.println ("llegue al down_keyRight");
-	float average = 0;
-	int16_t i;
-	
-	if(promflag)
-	{
-		for (i = 1; i < MAX_TEMP ; i++)
-		{
-			average += temperatures[i];
-		}
-		average = average / MAX_TEMP;
-	}
-	else
-	{
-		for (i = 1; i < index ; i++)
-		{
-			average += temperatures[i];
-		}
-		if(index == 0)
-			average = 0;
-		else
-			average = average / index;
-	}
 	
 	lcd.setCursor(11,1);
 	lcd.print(average);
@@ -145,6 +108,58 @@ void down_keySelect()
 	lcd.print(cant_samples);
 }
 
+void computeMax()
+{
+	maximum = temperatures[0];
+	int16_t i;
+	for (i = 1; i < MAX_TEMP ; i++)
+	{
+		if (temperatures[i] > 0.0 && maximum < temperatures[i])
+		{
+			maximum = temperatures[i];
+		}
+	}
+}
+
+void computeMin()
+{
+	
+	minimum = temperatures[0];
+	int16_t i;
+	for (i = 1; i < MAX_TEMP ; i++)
+	{
+		if (temperatures[i] > 0.0 && minimum > temperatures[i])
+		{
+			minimum = temperatures[i];
+		}
+	}
+}
+
+void computeAve()
+{
+	float sum = 0;
+		
+	if(promflag)
+	{
+		for (int i = 1; i < MAX_TEMP ; i++)
+		{
+			sum += temperatures[i];
+		}
+		average = sum / MAX_TEMP;
+	}
+	else
+	{
+		for (int i = 1; i < index ; i++)
+		{
+			sum += temperatures[i];
+		}
+		if(index == 0)
+			average = 0;
+		else
+			average = sum / index;
+	}
+}
+
 void process_temperature(float sensor_value)
 {
 	// Calculo de la temperatura segun el valor retornado.
@@ -153,14 +168,16 @@ void process_temperature(float sensor_value)
 		promflag = true;
 	index = (index + 1) % MAX_TEMP;
 	cant_samples++;
-	//Serial.println("hola llegue al procesar temperatura");
-	//Serial.println(sensor_value);
+	if(index > 0)
+		actual = temperatures[index-1];
+	computeMax();
+	computeMin();
+	computeAve();
+
 }
 
 void setup()
 {
-	Serial.begin (9600);
-
 	lcd.begin(numCols,numRows);
 
 	for(int i=0; i<MAX_TEMP;i++)

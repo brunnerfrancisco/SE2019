@@ -12,6 +12,6 @@ struct adc_cfg
 	int finish_convertion;
 };
 
-int adc_init(adc_cfg *cfg);
+int adc_init( adc_cfg *cfg );
 
 #endif /* ADC_DRIVER_H_ */

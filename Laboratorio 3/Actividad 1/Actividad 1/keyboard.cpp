@@ -8,20 +8,24 @@
 #include "adc_driver.h"
 
 #define KEYBOARD_CHNL 0
+
 static int16_t oldkey = -1;
+
 uint16_t adc_key_val[NRO_TECLAS] = { 50, 230, 360, 535, 760 };
-struct callback_str teclas_callback[ NRO_TECLAS ];
+
+struct callback_str teclas_callback [NRO_TECLAS];
+
 adc_cfg cfg_keyboard;
 
 void key_up_callback(void (* handler)(), int tecla)
 {
-	if(tecla>=0 && tecla < NRO_TECLAS)
+	if(tecla >= 0 && tecla < NRO_TECLAS)
 		teclas_callback[tecla].callback_Up = handler;
 }
 
 void key_down_callback(void (* handler)(), int tecla)
 {
-	if(tecla>=0 && tecla < NRO_TECLAS)
+	if(tecla >= 0 && tecla < NRO_TECLAS)
 		teclas_callback[tecla].callback_Down = handler;
 }
 

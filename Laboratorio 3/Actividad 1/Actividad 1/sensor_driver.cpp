@@ -12,7 +12,7 @@
 
 bool store = false; // flag que le dice al adc que llame al callback con el ultimo muestreo
 
-static uint16_t value_store = 0;
+static uint16_t value_store = 0; // valor del adc a guardar
 
 // callback del driver para responder a la solicitud de temperaturas del main
 void (* callback_sensor) (float);
@@ -22,11 +22,11 @@ adc_cfg adc_sensor;
 
 void process_callback_sensor()
 {
-	float value_sensor = (float)(value_store*500)/1024;			// convierto el valor digital a temperatura
+	float value_sensor = (float) (value_store * 500) / 1024; // convierto el valor digital a temperatura
 	callback_sensor (value_sensor);
 }
 
-void adc_sensor_callback(uint16_t value)
+void adc_sensor_callback( uint16_t value )
 {
 	// si tengo que guardar el valor llamo al callback
 	if(store)
@@ -55,7 +55,7 @@ int sensor_init(void (* callback_sen)(float))
 	adc_init(&adc_sensor);
 	
 	// inicializo el timer
-	timer_t *timer = timers_new(timer_callback);
-	timers_start (timer,F_SAMPLE_SENSOR);
+	timer_t *timer = timers_new( timer_callback );
+	timers_start (timer, F_SAMPLE_SENSOR);
 	return true;
 }
