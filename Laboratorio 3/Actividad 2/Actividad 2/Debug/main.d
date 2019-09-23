@@ -36,7 +36,7 @@ main.d main.o: .././main.cpp \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\util\delay_basic.h \
  C:\Program\ Files\ (x86)\Arduino\hardware\arduino\avr\cores\arduino/Arduino.h \
  C:\Program\ Files\ (x86)\Arduino\hardware\arduino\avr\variants\standard/pins_arduino.h \
- .././fnqueue.h .././keyboard.h .././sensor_driver.h
+ .././fnqueue.h .././keyboard.h .././sensor_driver.h .././timers.h
 
 c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\io.h:
 
@@ -117,3 +117,5 @@ C:\Program\ Files\ (x86)\Arduino\hardware\arduino\avr\variants\standard/pins_ard
 .././keyboard.h:
 
 .././sensor_driver.h:
+
+.././timers.h:

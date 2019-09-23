@@ -7,6 +7,7 @@
 #include "fnqueue.h"
 #include "keyboard.h"
 #include "sensor_driver.h"
+#include "timers.h"
 
 #define MAX_TEMP 100
 
@@ -18,6 +19,19 @@ LiquidCrystal lcd(8, 9, 4, 5, 6, 7);
 const uint8_t numRows = 2;
 const uint8_t numCols = 16;
 
+int read_value = 0;
+
+int aux_i_act = 0;
+int aux_i_max = 0;
+int aux_i_min = 0;
+int aux_i_ave = 0;
+
+uint8_t aux_ui_act = 0;
+uint8_t aux_ui_max = 0;
+uint8_t aux_ui_min = 0;
+uint8_t aux_ui_ave = 0;
+
+
 float actual = 0;
 float temperatures[MAX_TEMP];
 
@@ -27,7 +41,6 @@ float average = 0;
 
 static int index = 0;
 static uint16_t cant_samples = 0;
-static bool promflag = false;
 
 
 void up_keyUp()
@@ -138,50 +151,75 @@ void computeMin()
 void computeAve()
 {
 	float sum = 0;
-		
-	if(promflag)
+	for (int i = 0; i < MAX_TEMP ; i++)
 	{
-		for (int i = 1; i < MAX_TEMP ; i++)
-		{
-			sum += temperatures[i];
-		}
-		average = sum / MAX_TEMP;
+		sum += temperatures[i];
 	}
+	if(cant_samples == 0)
+		average = 0;
 	else
-	{
-		for (int i = 1; i < index ; i++)
-		{
-			sum += temperatures[i];
-		}
-		if(index == 0)
-			average = 0;
-		else
-			average = sum / index;
-	}
+		average = sum / cant_samples;
 }
 
 void process_temperature(float sensor_value)
 {
 	// Calculo de la temperatura segun el valor retornado.
 	temperatures[index] = sensor_value;
-	if(index==100)
-		promflag = true;
+	if(cant_samples<100)
+		cant_samples++;
 	index = (index + 1) % MAX_TEMP;
-	cant_samples++;
+	
 	if(index > 0)
 		actual = temperatures[index-1];
 	computeMax();
 	computeMin();
 	computeAve();
+	// envio datos a la GUI
+		aux_i_act = (int) actual;
+		aux_i_max = (int) maximum;
+		aux_i_min = (int) minimum;
+		aux_i_ave = (int) average;
 
+		aux_ui_act = (uint8_t) aux_i_act;
+		aux_ui_max = (uint8_t) aux_i_max;
+		aux_ui_min = (uint8_t) aux_i_min;
+		aux_ui_ave = (uint8_t) aux_i_ave;
+
+		Serial.write((uint8_t)240);
+		Serial.write(aux_ui_act);
+		Serial.write((uint8_t)241);
+		Serial.write(aux_ui_max);
+		Serial.write((uint8_t)242);
+		Serial.write(aux_ui_min);
+		Serial.write((uint8_t)243);
+		Serial.write(aux_ui_ave);
+		
+		if(Serial.available () > 0)
+		{
+			read_value = Serial.read();
+			if(read_value == 1){
+				down_keyUp ();
+			}
+			if(read_value == 2){
+				down_keyDown ();
+			}
+			if(read_value == 3){
+				down_keyRight ();
+			}
+			if(read_value == 4){
+				down_keyLeft ();
+			}
+		}
 }
 
 void setup()
 {
+	Serial.begin(9600);
+
 	lcd.begin(numCols,numRows);
 
 	for(int i=0; i<MAX_TEMP;i++)
-		temperatures[i]=-1;
+		temperatures[i]=0;
 
 	lcd.setCursor (0,0);
 	lcd.print ("SE2019 Sen.Temp.");
