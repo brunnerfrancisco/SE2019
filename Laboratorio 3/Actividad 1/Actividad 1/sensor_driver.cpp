@@ -22,6 +22,7 @@ adc_cfg adc_sensor;
 
 void process_callback_sensor()
 {
+	// Calculo de la temperatura segun el valor retornado.
 	float value_sensor = (float) (value_store * 500) / 1024; // convierto el valor digital a temperatura
 	callback_sensor (value_sensor);
 }

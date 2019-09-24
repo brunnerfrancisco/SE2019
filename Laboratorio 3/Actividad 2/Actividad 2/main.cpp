@@ -21,6 +21,8 @@ const uint8_t numCols = 16;
 
 int read_value = 0;
 
+static int index = 0;
+
 int aux_i_act = 0;
 int aux_i_max = 0;
 int aux_i_min = 0;
@@ -31,17 +33,22 @@ uint8_t aux_ui_max = 0;
 uint8_t aux_ui_min = 0;
 uint8_t aux_ui_ave = 0;
 
+static uint16_t cant_samples = 0;
 
-float actual = 0;
 float temperatures[MAX_TEMP];
 
+float actual = 0;
 float minimum = 0;
 float maximum = 0;
 float average = 0;
 
-static int index = 0;
-static uint16_t cant_samples = 0;
+void computeMax(void);
+void computeMin(void);
+void computeAve(void);
 
+/************************************************************************/
+/*                      CALLBACKS KEYBOARD                              */
+/************************************************************************/
 
 void up_keyUp()
 {
@@ -121,10 +128,76 @@ void down_keySelect()
 	lcd.print(cant_samples);
 }
 
+/************************************************************************/
+/*                         CALLBACK SENSOR                              */
+/************************************************************************/
+
+void process_temperature(float sensor_value)
+{
+	// Calculo de la temperatura segun el valor retornado.
+	temperatures[index] = sensor_value;
+	if(cant_samples<100)
+	cant_samples++;
+	index = (index + 1) % MAX_TEMP;
+	
+	if(index > 0)
+	actual = temperatures[index-1];
+	computeMax();
+	computeMin();
+	computeAve();
+
+
+	// envio datos a la GUI
+	// el envio/recepcion de datos se hace en esta funcion ya que se realiza 
+	// por cada interrupcion del timer
+
+
+	// el casteo se hace para enviar solo un byte por la UART
+	aux_i_act = (int) actual;
+	aux_i_max = (int) maximum;
+	aux_i_min = (int) minimum;
+	aux_i_ave = (int) average;
+
+	aux_ui_act = (uint8_t) aux_i_act;
+	aux_ui_max = (uint8_t) aux_i_max;
+	aux_ui_min = (uint8_t) aux_i_min;
+	aux_ui_ave = (uint8_t) aux_i_ave;
+
+	Serial.write((uint8_t)240);
+	Serial.write(aux_ui_act);
+
+	Serial.write((uint8_t)241);
+	Serial.write(aux_ui_max);
+	
+	Serial.write((uint8_t)242);
+	Serial.write(aux_ui_min);
+	
+	Serial.write((uint8_t)243);
+	Serial.write(aux_ui_ave);
+	
+	// leo el codigo correspondiente al boton presionado en la GUI
+	if(Serial.available () > 0)
+	{
+		read_value = Serial.read();
+		if(read_value == 1)
+			down_keyUp ();
+		if(read_value == 2)
+			down_keyDown ();
+		if(read_value == 3)
+			down_keyRight ();
+		if(read_value == 4)
+			down_keyLeft ();
+	}
+}
+
+/************************************************************************/
+/*                           AUXILIARES                                 */
+/************************************************************************/
+
 void computeMax()
 {
 	maximum = temperatures[0];
-	int16_t i;
+	int8_t i;
 	for (i = 1; i < MAX_TEMP ; i++)
 	{
 		if (temperatures[i] > 0.0 && maximum < temperatures[i])
@@ -136,9 +209,8 @@ void computeMax()
 
 void computeMin()
 {
-	
 	minimum = temperatures[0];
-	int16_t i;
+	int8_t i;
 	for (i = 1; i < MAX_TEMP ; i++)
 	{
 		if (temperatures[i] > 0.0 && minimum > temperatures[i])
@@ -159,57 +231,6 @@ void computeAve()
 		average = 0;
 	else
 		average = sum / cant_samples;
-}
-
-void process_temperature(float sensor_value)
-{
-	// Calculo de la temperatura segun el valor retornado.
-	temperatures[index] = sensor_value;
-	if(cant_samples<100)
-		cant_samples++;
-	index = (index + 1) % MAX_TEMP;
-	
-	if(index > 0)
-		actual = temperatures[index-1];
-	computeMax();
-	computeMin();
-	computeAve();
-	// envio datos a la GUI
-		aux_i_act = (int) actual;
-		aux_i_max = (int) maximum;
-		aux_i_min = (int) minimum;
-		aux_i_ave = (int) average;
-
-		aux_ui_act = (uint8_t) aux_i_act;
-		aux_ui_max = (uint8_t) aux_i_max;
-		aux_ui_min = (uint8_t) aux_i_min;
-		aux_ui_ave = (uint8_t) aux_i_ave;
-
-		Serial.write((uint8_t)240);
-		Serial.write(aux_ui_act);
-		Serial.write((uint8_t)241);
-		Serial.write(aux_ui_max);
-		Serial.write((uint8_t)242);
-		Serial.write(aux_ui_min);
-		Serial.write((uint8_t)243);
-		Serial.write(aux_ui_ave);
-		
-		if(Serial.available () > 0)
-		{
-			read_value = Serial.read();
-			if(read_value == 1){
-				down_keyUp ();
-			}
-			if(read_value == 2){
-				down_keyDown ();
-			}
-			if(read_value == 3){
-				down_keyRight ();
-			}
-			if(read_value == 4){
-				down_keyLeft ();
-			}
-		}
 }
 
 void setup()

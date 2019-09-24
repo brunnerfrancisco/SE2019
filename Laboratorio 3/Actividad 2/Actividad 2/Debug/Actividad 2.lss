@@ -15,19 +15,19 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY
   5 .debug_aranges 00000300  00000000  00000000  00002168  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_info   0000459a  00000000  00000000  00002468  2**0
+  6 .debug_info   00004592  00000000  00000000  00002468  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_abbrev 000013e5  00000000  00000000  00006a02  2**0
+  7 .debug_abbrev 0000140a  00000000  00000000  000069fa  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_line   00001db9  00000000  00000000  00007de7  2**0
+  8 .debug_line   00001dba  00000000  00000000  00007e04  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_frame  00000810  00000000  00000000  00009ba0  2**2
+  9 .debug_frame  00000810  00000000  00000000  00009bc0  2**2
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_str    00001356  00000000  00000000  0000a3b0  2**0
+ 10 .debug_str    0000134d  00000000  00000000  0000a3d0  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_loc    0000276d  00000000  00000000  0000b706  2**0
+ 11 .debug_loc    0000276d  00000000  00000000  0000b71d  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_ranges 00000270  00000000  00000000  0000de73  2**0
+ 12 .debug_ranges 00000270  00000000  00000000  0000de8a  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -1283,13 +1283,13 @@ int adc_init(struct adc_cfg *cfg)
      9da:	97 83       	std	Z+7, r25	; 0x07
      9dc:	86 83       	std	Z+6, r24	; 0x06
 
+	// flag para inicializar el ADC solo una vez
 	if(!converting)
      9de:	80 91 6c 02 	lds	r24, 0x026C	; 0x80026c <_ZL10converting>
      9e2:	90 91 6d 02 	lds	r25, 0x026D	; 0x80026d <_ZL10converting+0x1>
      9e6:	89 2b       	or	r24, r25
      9e8:	21 f5       	brne	.+72     	; 0xa32 <_Z8adc_initP7adc_cfg+0xa6>
 	{
-
 		cli();
      9ea:	f8 94       	cli
 		
@@ -1299,7 +1299,6 @@ int adc_init(struct adc_cfg *cfg)
      9f0:	80 81       	ld	r24, Z
      9f2:	87 60       	ori	r24, 0x07	; 7
      9f4:	80 83       	st	Z, r24
-			
 		ADMUX |= (1 << REFS0);
      9f6:	ac e7       	ldi	r26, 0x7C	; 124
      9f8:	b0 e0       	ldi	r27, 0x00	; 0
@@ -1310,12 +1309,10 @@ int adc_init(struct adc_cfg *cfg)
      a00:	8c 91       	ld	r24, X
      a02:	8f 7d       	andi	r24, 0xDF	; 223
      a04:	8c 93       	st	X, r24
-			
 		ADCSRA &= ~(1 << ADATE); // este bit en 0 desactiva el AutoTrigger segun el datasheet
      a06:	80 81       	ld	r24, Z
      a08:	8f 7d       	andi	r24, 0xDF	; 223
      a0a:	80 83       	st	Z, r24
-			
 		ADCSRA |= (1 << ADEN); // habilito el adc "lo prendo" segun el datasheet
      a0c:	80 81       	ld	r24, Z
      a0e:	80 68       	ori	r24, 0x80	; 128
@@ -1324,18 +1321,16 @@ int adc_init(struct adc_cfg *cfg)
      a12:	80 81       	ld	r24, Z
      a14:	88 60       	ori	r24, 0x08	; 8
      a16:	80 83       	st	Z, r24
-
 		ADMUX &= ~((1 << MUX3) | (1 << MUX2) | (1 << MUX1) | (1 << MUX0));
      a18:	8c 91       	ld	r24, X
      a1a:	80 7f       	andi	r24, 0xF0	; 240
      a1c:	8c 93       	st	X, r24
-			
 		ADCSRA |= (1 << ADSC); // este es el bit que pone a funcionar el ADC segun el datasheet
      a1e:	80 81       	ld	r24, Z
      a20:	80 64       	ori	r24, 0x40	; 64
      a22:	80 83       	st	Z, r24
-		// habilito las interrupciones
 
+		// habilito las interrupciones
 		sei();
      a24:	78 94       	sei
 		converting = 1;
@@ -1433,14 +1428,14 @@ ISR(ADC_vect)
      ad4:	90 e0       	ldi	r25, 0x00	; 0
      ad6:	90 93 6f 02 	sts	0x026F, r25	; 0x80026f <_ZL14actual_channel+0x1>
      ada:	80 93 6e 02 	sts	0x026E, r24	; 0x80026e <_ZL14actual_channel>
-
+		// limpiamos el ADMUX
 		ADMUX &= ~((1 << MUX3) | (1 << MUX2) | (1 << MUX1) | (1 << MUX0));
      ade:	ec e7       	ldi	r30, 0x7C	; 124
      ae0:	f0 e0       	ldi	r31, 0x00	; 0
      ae2:	80 81       	ld	r24, Z
      ae4:	80 7f       	andi	r24, 0xF0	; 240
      ae6:	80 83       	st	Z, r24
-		
+		// seteamos el canal actual
 		ADMUX |= 1<<MUX0;
      ae8:	80 81       	ld	r24, Z
      aea:	81 60       	ori	r24, 0x01	; 1
@@ -1452,13 +1447,14 @@ ISR(ADC_vect)
 		actual_channel = 0;
      af0:	10 92 6f 02 	sts	0x026F, r1	; 0x80026f <_ZL14actual_channel+0x1>
      af4:	10 92 6e 02 	sts	0x026E, r1	; 0x80026e <_ZL14actual_channel>
-
+		// limpiamos el ADMUX
 		ADMUX &= ~((1 << MUX3) | (1 << MUX2) | (1 << MUX1) | (1 << MUX0));
      af8:	ec e7       	ldi	r30, 0x7C	; 124
      afa:	f0 e0       	ldi	r31, 0x00	; 0
      afc:	80 81       	ld	r24, Z
      afe:	80 7f       	andi	r24, 0xF0	; 240
      b00:	80 83       	st	Z, r24
+		// ya que se setea el canal 0 queda el ADMUX limpio
 	}
 
 	fnqueue_add (adc_process);
@@ -1858,7 +1854,7 @@ void adc_keyboard_process(uint16_t analogVal)
      d1e:	08 95       	ret
 
 00000d20 <_Z15key_up_callbackPFvvEi>:
-
+// estructura de configuracion del ADC
 adc_cfg cfg_keyboard;
 
 void key_up_callback(void (* handler)(), int tecla)
@@ -1901,11 +1897,11 @@ void key_down_callback(void (* handler)(), int tecla)
      d52:	08 95       	ret
 
 00000d54 <_Z13keyboard_initv>:
-	;
 }
 
 void keyboard_init(void)
 {
+	// inicializo el ADC
 	cfg_keyboard.channel = KEYBOARD_CHNL;
      d54:	e5 e9       	ldi	r30, 0x95	; 149
      d56:	f2 e0       	ldi	r31, 0x02	; 2
@@ -2358,8 +2354,8 @@ inline size_t LiquidCrystal::write(uint8_t value) {
     10da:	08 95       	ret
 
 000010dc <_Z8up_keyUpv>:
-static bool promflag = false;
-
+/*                      CALLBACKS KEYBOARD                              */
+/************************************************************************/
 
 void up_keyUp()
 {
@@ -2483,10 +2479,10 @@ void down_keyUp()
     117c:	94 e0       	ldi	r25, 0x04	; 4
     117e:	0e 94 6d 07 	call	0xeda	; 0xeda <_ZN13LiquidCrystal9setCursorEhh>
 	lcd.print(maximum);
-    1182:	40 91 bb 02 	lds	r20, 0x02BB	; 0x8002bb <maximum>
-    1186:	50 91 bc 02 	lds	r21, 0x02BC	; 0x8002bc <maximum+0x1>
-    118a:	60 91 bd 02 	lds	r22, 0x02BD	; 0x8002bd <maximum+0x2>
-    118e:	70 91 be 02 	lds	r23, 0x02BE	; 0x8002be <maximum+0x3>
+    1182:	40 91 b7 02 	lds	r20, 0x02B7	; 0x8002b7 <maximum>
+    1186:	50 91 b8 02 	lds	r21, 0x02B8	; 0x8002b8 <maximum+0x1>
+    118a:	60 91 b9 02 	lds	r22, 0x02B9	; 0x8002b9 <maximum+0x2>
+    118e:	70 91 ba 02 	lds	r23, 0x02BA	; 0x8002ba <maximum+0x3>
     1192:	22 e0       	ldi	r18, 0x02	; 2
     1194:	30 e0       	ldi	r19, 0x00	; 0
     1196:	85 e6       	ldi	r24, 0x65	; 101
@@ -2520,10 +2516,10 @@ void down_keyDown()
     11be:	94 e0       	ldi	r25, 0x04	; 4
     11c0:	0e 94 6d 07 	call	0xeda	; 0xeda <_ZN13LiquidCrystal9setCursorEhh>
 	lcd.print(minimum);
-    11c4:	40 91 bf 02 	lds	r20, 0x02BF	; 0x8002bf <minimum>
-    11c8:	50 91 c0 02 	lds	r21, 0x02C0	; 0x8002c0 <minimum+0x1>
-    11cc:	60 91 c1 02 	lds	r22, 0x02C1	; 0x8002c1 <minimum+0x2>
-    11d0:	70 91 c2 02 	lds	r23, 0x02C2	; 0x8002c2 <minimum+0x3>
+    11c4:	40 91 bb 02 	lds	r20, 0x02BB	; 0x8002bb <minimum>
+    11c8:	50 91 bc 02 	lds	r21, 0x02BC	; 0x8002bc <minimum+0x1>
+    11cc:	60 91 bd 02 	lds	r22, 0x02BD	; 0x8002bd <minimum+0x2>
+    11d0:	70 91 be 02 	lds	r23, 0x02BE	; 0x8002be <minimum+0x3>
     11d4:	22 e0       	ldi	r18, 0x02	; 2
     11d6:	30 e0       	ldi	r19, 0x00	; 0
     11d8:	85 e6       	ldi	r24, 0x65	; 101
@@ -2557,10 +2553,10 @@ void down_keyRight()
     1200:	94 e0       	ldi	r25, 0x04	; 4
     1202:	0e 94 6d 07 	call	0xeda	; 0xeda <_ZN13LiquidCrystal9setCursorEhh>
 	lcd.print(average);
-    1206:	40 91 b7 02 	lds	r20, 0x02B7	; 0x8002b7 <average>
-    120a:	50 91 b8 02 	lds	r21, 0x02B8	; 0x8002b8 <average+0x1>
-    120e:	60 91 b9 02 	lds	r22, 0x02B9	; 0x8002b9 <average+0x2>
-    1212:	70 91 ba 02 	lds	r23, 0x02BA	; 0x8002ba <average+0x3>
+    1206:	40 91 b3 02 	lds	r20, 0x02B3	; 0x8002b3 <average>
+    120a:	50 91 b4 02 	lds	r21, 0x02B4	; 0x8002b4 <average+0x1>
+    120e:	60 91 b5 02 	lds	r22, 0x02B5	; 0x8002b5 <average+0x2>
+    1212:	70 91 b6 02 	lds	r23, 0x02B6	; 0x8002b6 <average+0x3>
     1216:	22 e0       	ldi	r18, 0x02	; 2
     1218:	30 e0       	ldi	r19, 0x00	; 0
     121a:	85 e6       	ldi	r24, 0x65	; 101
@@ -2594,8 +2590,8 @@ void down_keyLeft()
     1244:	0e 94 6d 07 	call	0xeda	; 0xeda <_ZN13LiquidCrystal9setCursorEhh>
 	float actual = 0;
 	if(index > 0)
-    1248:	80 91 b5 02 	lds	r24, 0x02B5	; 0x8002b5 <_ZL5index>
-    124c:	90 91 b6 02 	lds	r25, 0x02B6	; 0x8002b6 <_ZL5index+0x1>
+    1248:	80 91 61 04 	lds	r24, 0x0461	; 0x800461 <_ZL5index>
+    124c:	90 91 62 04 	lds	r25, 0x0462	; 0x800462 <_ZL5index+0x1>
     1250:	18 16       	cp	r1, r24
     1252:	19 06       	cpc	r1, r25
     1254:	64 f4       	brge	.+24     	; 0x126e <_Z12down_keyLeftv+0x4a>
@@ -2656,8 +2652,8 @@ void down_keySelect()
     12a0:	94 e0       	ldi	r25, 0x04	; 4
     12a2:	0e 94 6d 07 	call	0xeda	; 0xeda <_ZN13LiquidCrystal9setCursorEhh>
 	lcd.print(cant_samples);
-    12a6:	60 91 b3 02 	lds	r22, 0x02B3	; 0x8002b3 <_ZL12cant_samples>
-    12aa:	70 91 b4 02 	lds	r23, 0x02B4	; 0x8002b4 <_ZL12cant_samples+0x1>
+    12a6:	60 91 53 04 	lds	r22, 0x0453	; 0x800453 <_ZL12cant_samples>
+    12aa:	70 91 54 04 	lds	r23, 0x0454	; 0x800454 <_ZL12cant_samples+0x1>
     12ae:	4a e0       	ldi	r20, 0x0A	; 10
     12b0:	50 e0       	ldi	r21, 0x00	; 0
     12b2:	85 e6       	ldi	r24, 0x65	; 101
@@ -2666,7 +2662,9 @@ void down_keySelect()
     12ba:	08 95       	ret
 
 000012bc <_Z10computeMaxv>:
-}
+/************************************************************************/
+/*                           AUXILIARES                                 */
+/************************************************************************/
 
 void computeMax()
 {
@@ -2691,7 +2689,7 @@ void computeMax()
     12e6:	d2 e0       	ldi	r29, 0x02	; 2
     12e8:	03 e5       	ldi	r16, 0x53	; 83
     12ea:	14 e0       	ldi	r17, 0x04	; 4
-	int16_t i;
+	int8_t i;
 	for (i = 1; i < MAX_TEMP ; i++)
 	{
 		if (temperatures[i] > 0.0 && maximum < temperatures[i])
@@ -2726,7 +2724,7 @@ void computeMax()
 void computeMax()
 {
 	maximum = temperatures[0];
-	int16_t i;
+	int8_t i;
 	for (i = 1; i < MAX_TEMP ; i++)
     1322:	c0 17       	cp	r28, r16
     1324:	d1 07       	cpc	r29, r17
@@ -2735,10 +2733,10 @@ void computeMax()
     132a:	99 2d       	mov	r25, r9
     132c:	aa 2d       	mov	r26, r10
     132e:	bb 2d       	mov	r27, r11
-    1330:	80 93 bb 02 	sts	0x02BB, r24	; 0x8002bb <maximum>
-    1334:	90 93 bc 02 	sts	0x02BC, r25	; 0x8002bc <maximum+0x1>
-    1338:	a0 93 bd 02 	sts	0x02BD, r26	; 0x8002bd <maximum+0x2>
-    133c:	b0 93 be 02 	sts	0x02BE, r27	; 0x8002be <maximum+0x3>
+    1330:	80 93 b7 02 	sts	0x02B7, r24	; 0x8002b7 <maximum>
+    1334:	90 93 b8 02 	sts	0x02B8, r25	; 0x8002b8 <maximum+0x1>
+    1338:	a0 93 b9 02 	sts	0x02B9, r26	; 0x8002b9 <maximum+0x2>
+    133c:	b0 93 ba 02 	sts	0x02BA, r27	; 0x8002ba <maximum+0x3>
 		if (temperatures[i] > 0.0 && maximum < temperatures[i])
 		{
 			maximum = temperatures[i];
@@ -2775,7 +2773,6 @@ void computeMin()
     136c:	1f 93       	push	r17
     136e:	cf 93       	push	r28
     1370:	df 93       	push	r29
-	
 	minimum = temperatures[0];
     1372:	80 90 c3 02 	lds	r8, 0x02C3	; 0x8002c3 <temperatures>
     1376:	90 90 c4 02 	lds	r9, 0x02C4	; 0x8002c4 <temperatures+0x1>
@@ -2785,7 +2782,7 @@ void computeMin()
     1384:	d2 e0       	ldi	r29, 0x02	; 2
     1386:	03 e5       	ldi	r16, 0x53	; 83
     1388:	14 e0       	ldi	r17, 0x04	; 4
-	int16_t i;
+	int8_t i;
 	for (i = 1; i < MAX_TEMP ; i++)
 	{
 		if (temperatures[i] > 0.0 && minimum > temperatures[i])
@@ -2816,11 +2813,11 @@ void computeMin()
     13ba:	9d 2c       	mov	r9, r13
     13bc:	ae 2c       	mov	r10, r14
     13be:	bf 2c       	mov	r11, r15
+
 void computeMin()
 {
-	
 	minimum = temperatures[0];
-	int16_t i;
+	int8_t i;
 	for (i = 1; i < MAX_TEMP ; i++)
     13c0:	c0 17       	cp	r28, r16
     13c2:	d1 07       	cpc	r29, r17
@@ -2829,10 +2826,10 @@ void computeMin()
     13c8:	99 2d       	mov	r25, r9
     13ca:	aa 2d       	mov	r26, r10
     13cc:	bb 2d       	mov	r27, r11
-    13ce:	80 93 bf 02 	sts	0x02BF, r24	; 0x8002bf <minimum>
-    13d2:	90 93 c0 02 	sts	0x02C0, r25	; 0x8002c0 <minimum+0x1>
-    13d6:	a0 93 c1 02 	sts	0x02C1, r26	; 0x8002c1 <minimum+0x2>
-    13da:	b0 93 c2 02 	sts	0x02C2, r27	; 0x8002c2 <minimum+0x3>
+    13ce:	80 93 bb 02 	sts	0x02BB, r24	; 0x8002bb <minimum>
+    13d2:	90 93 bc 02 	sts	0x02BC, r25	; 0x8002bc <minimum+0x1>
+    13d6:	a0 93 bd 02 	sts	0x02BD, r26	; 0x8002bd <minimum+0x2>
+    13da:	b0 93 be 02 	sts	0x02BE, r27	; 0x8002be <minimum+0x3>
 		if (temperatures[i] > 0.0 && minimum > temperatures[i])
 		{
 			minimum = temperatures[i];
@@ -2898,16 +2895,16 @@ void computeAve()
 		sum += temperatures[i];
 	}
 	if(cant_samples == 0)
-    1430:	60 91 b3 02 	lds	r22, 0x02B3	; 0x8002b3 <_ZL12cant_samples>
-    1434:	70 91 b4 02 	lds	r23, 0x02B4	; 0x8002b4 <_ZL12cant_samples+0x1>
+    1430:	60 91 53 04 	lds	r22, 0x0453	; 0x800453 <_ZL12cant_samples>
+    1434:	70 91 54 04 	lds	r23, 0x0454	; 0x800454 <_ZL12cant_samples+0x1>
     1438:	61 15       	cp	r22, r1
     143a:	71 05       	cpc	r23, r1
     143c:	49 f4       	brne	.+18     	; 0x1450 <_Z10computeAvev+0x58>
 		average = 0;
-    143e:	10 92 b7 02 	sts	0x02B7, r1	; 0x8002b7 <average>
-    1442:	10 92 b8 02 	sts	0x02B8, r1	; 0x8002b8 <average+0x1>
-    1446:	10 92 b9 02 	sts	0x02B9, r1	; 0x8002b9 <average+0x2>
-    144a:	10 92 ba 02 	sts	0x02BA, r1	; 0x8002ba <average+0x3>
+    143e:	10 92 b3 02 	sts	0x02B3, r1	; 0x8002b3 <average>
+    1442:	10 92 b4 02 	sts	0x02B4, r1	; 0x8002b4 <average+0x1>
+    1446:	10 92 b5 02 	sts	0x02B5, r1	; 0x8002b5 <average+0x2>
+    144a:	10 92 b6 02 	sts	0x02B6, r1	; 0x8002b6 <average+0x3>
     144e:	12 c0       	rjmp	.+36     	; 0x1474 <_Z10computeAvev+0x7c>
 	else
 		average = sum / cant_samples;
@@ -2919,10 +2916,10 @@ void computeAve()
     145c:	c7 01       	movw	r24, r14
     145e:	b6 01       	movw	r22, r12
     1460:	0e 94 c6 0d 	call	0x1b8c	; 0x1b8c <__divsf3>
-    1464:	60 93 b7 02 	sts	0x02B7, r22	; 0x8002b7 <average>
-    1468:	70 93 b8 02 	sts	0x02B8, r23	; 0x8002b8 <average+0x1>
-    146c:	80 93 b9 02 	sts	0x02B9, r24	; 0x8002b9 <average+0x2>
-    1470:	90 93 ba 02 	sts	0x02BA, r25	; 0x8002ba <average+0x3>
+    1464:	60 93 b3 02 	sts	0x02B3, r22	; 0x8002b3 <average>
+    1468:	70 93 b4 02 	sts	0x02B4, r23	; 0x8002b4 <average+0x1>
+    146c:	80 93 b5 02 	sts	0x02B5, r24	; 0x8002b5 <average+0x2>
+    1470:	90 93 b6 02 	sts	0x02B6, r25	; 0x8002b6 <average+0x3>
 }
     1474:	df 91       	pop	r29
     1476:	cf 91       	pop	r28
@@ -3130,9 +3127,9 @@ void loop()
     15a8:	08 95       	ret
 
 000015aa <_Z19process_temperaturef>:
-	else
-		average = sum / cant_samples;
-}
+/************************************************************************/
+/*                         CALLBACK SENSOR                              */
+/************************************************************************/
 
 void process_temperature(float sensor_value)
 {
@@ -3141,8 +3138,8 @@ void process_temperature(float sensor_value)
     15ae:	df 93       	push	r29
 	// Calculo de la temperatura segun el valor retornado.
 	temperatures[index] = sensor_value;
-    15b0:	40 91 b5 02 	lds	r20, 0x02B5	; 0x8002b5 <_ZL5index>
-    15b4:	50 91 b6 02 	lds	r21, 0x02B6	; 0x8002b6 <_ZL5index+0x1>
+    15b0:	40 91 61 04 	lds	r20, 0x0461	; 0x800461 <_ZL5index>
+    15b4:	50 91 62 04 	lds	r21, 0x0462	; 0x800462 <_ZL5index+0x1>
     15b8:	fa 01       	movw	r30, r20
     15ba:	ee 0f       	add	r30, r30
     15bc:	ff 1f       	adc	r31, r31
@@ -3155,30 +3152,30 @@ void process_temperature(float sensor_value)
     15ca:	82 83       	std	Z+2, r24	; 0x02
     15cc:	93 83       	std	Z+3, r25	; 0x03
 	if(cant_samples<100)
-    15ce:	20 91 b3 02 	lds	r18, 0x02B3	; 0x8002b3 <_ZL12cant_samples>
-    15d2:	30 91 b4 02 	lds	r19, 0x02B4	; 0x8002b4 <_ZL12cant_samples+0x1>
+    15ce:	20 91 53 04 	lds	r18, 0x0453	; 0x800453 <_ZL12cant_samples>
+    15d2:	30 91 54 04 	lds	r19, 0x0454	; 0x800454 <_ZL12cant_samples+0x1>
     15d6:	24 36       	cpi	r18, 0x64	; 100
     15d8:	31 05       	cpc	r19, r1
     15da:	30 f4       	brcc	.+12     	; 0x15e8 <_Z19process_temperaturef+0x3e>
-		cant_samples++;
+	cant_samples++;
     15dc:	2f 5f       	subi	r18, 0xFF	; 255
     15de:	3f 4f       	sbci	r19, 0xFF	; 255
-    15e0:	30 93 b4 02 	sts	0x02B4, r19	; 0x8002b4 <_ZL12cant_samples+0x1>
-    15e4:	20 93 b3 02 	sts	0x02B3, r18	; 0x8002b3 <_ZL12cant_samples>
+    15e0:	30 93 54 04 	sts	0x0454, r19	; 0x800454 <_ZL12cant_samples+0x1>
+    15e4:	20 93 53 04 	sts	0x0453, r18	; 0x800453 <_ZL12cant_samples>
 	index = (index + 1) % MAX_TEMP;
     15e8:	ca 01       	movw	r24, r20
     15ea:	01 96       	adiw	r24, 0x01	; 1
     15ec:	64 e6       	ldi	r22, 0x64	; 100
     15ee:	70 e0       	ldi	r23, 0x00	; 0
     15f0:	0e 94 92 0f 	call	0x1f24	; 0x1f24 <__divmodhi4>
-    15f4:	90 93 b6 02 	sts	0x02B6, r25	; 0x8002b6 <_ZL5index+0x1>
-    15f8:	80 93 b5 02 	sts	0x02B5, r24	; 0x8002b5 <_ZL5index>
+    15f4:	90 93 62 04 	sts	0x0462, r25	; 0x800462 <_ZL5index+0x1>
+    15f8:	80 93 61 04 	sts	0x0461, r24	; 0x800461 <_ZL5index>
 	
 	if(index > 0)
     15fc:	18 16       	cp	r1, r24
     15fe:	19 06       	cpc	r1, r25
     1600:	9c f4       	brge	.+38     	; 0x1628 <_Z19process_temperaturef+0x7e>
-		actual = temperatures[index-1];
+	actual = temperatures[index-1];
     1602:	88 0f       	add	r24, r24
     1604:	99 1f       	adc	r25, r25
     1606:	88 0f       	add	r24, r24
@@ -3190,148 +3187,152 @@ void process_temperature(float sensor_value)
     1612:	91 81       	ldd	r25, Z+1	; 0x01
     1614:	a2 81       	ldd	r26, Z+2	; 0x02
     1616:	b3 81       	ldd	r27, Z+3	; 0x03
-    1618:	80 93 53 04 	sts	0x0453, r24	; 0x800453 <actual>
-    161c:	90 93 54 04 	sts	0x0454, r25	; 0x800454 <actual+0x1>
-    1620:	a0 93 55 04 	sts	0x0455, r26	; 0x800455 <actual+0x2>
-    1624:	b0 93 56 04 	sts	0x0456, r27	; 0x800456 <actual+0x3>
+    1618:	80 93 bf 02 	sts	0x02BF, r24	; 0x8002bf <actual>
+    161c:	90 93 c0 02 	sts	0x02C0, r25	; 0x8002c0 <actual+0x1>
+    1620:	a0 93 c1 02 	sts	0x02C1, r26	; 0x8002c1 <actual+0x2>
+    1624:	b0 93 c2 02 	sts	0x02C2, r27	; 0x8002c2 <actual+0x3>
 	computeMax();
     1628:	0e 94 5e 09 	call	0x12bc	; 0x12bc <_Z10computeMaxv>
 	computeMin();
     162c:	0e 94 ad 09 	call	0x135a	; 0x135a <_Z10computeMinv>
 	computeAve();
     1630:	0e 94 fc 09 	call	0x13f8	; 0x13f8 <_Z10computeAvev>
-	// envio datos a la GUI
-		aux_i_act = (int) actual;
-    1634:	60 91 53 04 	lds	r22, 0x0453	; 0x800453 <actual>
-    1638:	70 91 54 04 	lds	r23, 0x0454	; 0x800454 <actual+0x1>
-    163c:	80 91 55 04 	lds	r24, 0x0455	; 0x800455 <actual+0x2>
-    1640:	90 91 56 04 	lds	r25, 0x0456	; 0x800456 <actual+0x3>
+	// el envio/recepcion de datos se hace en esta funcion ya que se realiza 
+	// por cada interrupcion del timer
+
+
+	// el casteo se hace para enviar solo un byte por la UART
+	aux_i_act = (int) actual;
+    1634:	60 91 bf 02 	lds	r22, 0x02BF	; 0x8002bf <actual>
+    1638:	70 91 c0 02 	lds	r23, 0x02C0	; 0x8002c0 <actual+0x1>
+    163c:	80 91 c1 02 	lds	r24, 0x02C1	; 0x8002c1 <actual+0x2>
+    1640:	90 91 c2 02 	lds	r25, 0x02C2	; 0x8002c2 <actual+0x3>
     1644:	0e 94 38 0e 	call	0x1c70	; 0x1c70 <__fixsfsi>
     1648:	16 2f       	mov	r17, r22
-    164a:	60 93 61 04 	sts	0x0461, r22	; 0x800461 <aux_i_act>
-    164e:	70 93 62 04 	sts	0x0462, r23	; 0x800462 <aux_i_act+0x1>
-		aux_i_max = (int) maximum;
-    1652:	60 91 bb 02 	lds	r22, 0x02BB	; 0x8002bb <maximum>
-    1656:	70 91 bc 02 	lds	r23, 0x02BC	; 0x8002bc <maximum+0x1>
-    165a:	80 91 bd 02 	lds	r24, 0x02BD	; 0x8002bd <maximum+0x2>
-    165e:	90 91 be 02 	lds	r25, 0x02BE	; 0x8002be <maximum+0x3>
+    164a:	60 93 5f 04 	sts	0x045F, r22	; 0x80045f <aux_i_act>
+    164e:	70 93 60 04 	sts	0x0460, r23	; 0x800460 <aux_i_act+0x1>
+	aux_i_max = (int) maximum;
+    1652:	60 91 b7 02 	lds	r22, 0x02B7	; 0x8002b7 <maximum>
+    1656:	70 91 b8 02 	lds	r23, 0x02B8	; 0x8002b8 <maximum+0x1>
+    165a:	80 91 b9 02 	lds	r24, 0x02B9	; 0x8002b9 <maximum+0x2>
+    165e:	90 91 ba 02 	lds	r25, 0x02BA	; 0x8002ba <maximum+0x3>
     1662:	0e 94 38 0e 	call	0x1c70	; 0x1c70 <__fixsfsi>
     1666:	d6 2f       	mov	r29, r22
-    1668:	60 93 5f 04 	sts	0x045F, r22	; 0x80045f <aux_i_max>
-    166c:	70 93 60 04 	sts	0x0460, r23	; 0x800460 <aux_i_max+0x1>
-		aux_i_min = (int) minimum;
-    1670:	60 91 bf 02 	lds	r22, 0x02BF	; 0x8002bf <minimum>
-    1674:	70 91 c0 02 	lds	r23, 0x02C0	; 0x8002c0 <minimum+0x1>
-    1678:	80 91 c1 02 	lds	r24, 0x02C1	; 0x8002c1 <minimum+0x2>
-    167c:	90 91 c2 02 	lds	r25, 0x02C2	; 0x8002c2 <minimum+0x3>
+    1668:	60 93 5d 04 	sts	0x045D, r22	; 0x80045d <aux_i_max>
+    166c:	70 93 5e 04 	sts	0x045E, r23	; 0x80045e <aux_i_max+0x1>
+	aux_i_min = (int) minimum;
+    1670:	60 91 bb 02 	lds	r22, 0x02BB	; 0x8002bb <minimum>
+    1674:	70 91 bc 02 	lds	r23, 0x02BC	; 0x8002bc <minimum+0x1>
+    1678:	80 91 bd 02 	lds	r24, 0x02BD	; 0x8002bd <minimum+0x2>
+    167c:	90 91 be 02 	lds	r25, 0x02BE	; 0x8002be <minimum+0x3>
     1680:	0e 94 38 0e 	call	0x1c70	; 0x1c70 <__fixsfsi>
     1684:	c6 2f       	mov	r28, r22
-    1686:	60 93 5d 04 	sts	0x045D, r22	; 0x80045d <aux_i_min>
-    168a:	70 93 5e 04 	sts	0x045E, r23	; 0x80045e <aux_i_min+0x1>
-		aux_i_ave = (int) average;
-    168e:	60 91 b7 02 	lds	r22, 0x02B7	; 0x8002b7 <average>
-    1692:	70 91 b8 02 	lds	r23, 0x02B8	; 0x8002b8 <average+0x1>
-    1696:	80 91 b9 02 	lds	r24, 0x02B9	; 0x8002b9 <average+0x2>
-    169a:	90 91 ba 02 	lds	r25, 0x02BA	; 0x8002ba <average+0x3>
+    1686:	60 93 5b 04 	sts	0x045B, r22	; 0x80045b <aux_i_min>
+    168a:	70 93 5c 04 	sts	0x045C, r23	; 0x80045c <aux_i_min+0x1>
+	aux_i_ave = (int) average;
+    168e:	60 91 b3 02 	lds	r22, 0x02B3	; 0x8002b3 <average>
+    1692:	70 91 b4 02 	lds	r23, 0x02B4	; 0x8002b4 <average+0x1>
+    1696:	80 91 b5 02 	lds	r24, 0x02B5	; 0x8002b5 <average+0x2>
+    169a:	90 91 b6 02 	lds	r25, 0x02B6	; 0x8002b6 <average+0x3>
     169e:	0e 94 38 0e 	call	0x1c70	; 0x1c70 <__fixsfsi>
-    16a2:	60 93 5b 04 	sts	0x045B, r22	; 0x80045b <aux_i_ave>
-    16a6:	70 93 5c 04 	sts	0x045C, r23	; 0x80045c <aux_i_ave+0x1>
+    16a2:	60 93 59 04 	sts	0x0459, r22	; 0x800459 <aux_i_ave>
+    16a6:	70 93 5a 04 	sts	0x045A, r23	; 0x80045a <aux_i_ave+0x1>
 
-		aux_ui_act = (uint8_t) aux_i_act;
-    16aa:	10 93 5a 04 	sts	0x045A, r17	; 0x80045a <aux_ui_act>
-		aux_ui_max = (uint8_t) aux_i_max;
-    16ae:	d0 93 59 04 	sts	0x0459, r29	; 0x800459 <aux_ui_max>
-		aux_ui_min = (uint8_t) aux_i_min;
-    16b2:	c0 93 58 04 	sts	0x0458, r28	; 0x800458 <aux_ui_min>
-		aux_ui_ave = (uint8_t) aux_i_ave;
-    16b6:	60 93 57 04 	sts	0x0457, r22	; 0x800457 <aux_ui_ave>
+	aux_ui_act = (uint8_t) aux_i_act;
+    16aa:	10 93 58 04 	sts	0x0458, r17	; 0x800458 <aux_ui_act>
+	aux_ui_max = (uint8_t) aux_i_max;
+    16ae:	d0 93 57 04 	sts	0x0457, r29	; 0x800457 <aux_ui_max>
+	aux_ui_min = (uint8_t) aux_i_min;
+    16b2:	c0 93 56 04 	sts	0x0456, r28	; 0x800456 <aux_ui_min>
+	aux_ui_ave = (uint8_t) aux_i_ave;
+    16b6:	60 93 55 04 	sts	0x0455, r22	; 0x800455 <aux_ui_ave>
 
-		Serial.write((uint8_t)240);
+	Serial.write((uint8_t)240);
     16ba:	60 ef       	ldi	r22, 0xF0	; 240
     16bc:	88 e8       	ldi	r24, 0x88	; 136
     16be:	91 e0       	ldi	r25, 0x01	; 1
     16c0:	0e 94 1b 01 	call	0x236	; 0x236 <_ZN14HardwareSerial5writeEh>
-		Serial.write(aux_ui_act);
-    16c4:	60 91 5a 04 	lds	r22, 0x045A	; 0x80045a <aux_ui_act>
+	Serial.write(aux_ui_act);
+    16c4:	60 91 58 04 	lds	r22, 0x0458	; 0x800458 <aux_ui_act>
     16c8:	88 e8       	ldi	r24, 0x88	; 136
     16ca:	91 e0       	ldi	r25, 0x01	; 1
     16cc:	0e 94 1b 01 	call	0x236	; 0x236 <_ZN14HardwareSerial5writeEh>
-		Serial.write((uint8_t)241);
+
+	Serial.write((uint8_t)241);
     16d0:	61 ef       	ldi	r22, 0xF1	; 241
     16d2:	88 e8       	ldi	r24, 0x88	; 136
     16d4:	91 e0       	ldi	r25, 0x01	; 1
     16d6:	0e 94 1b 01 	call	0x236	; 0x236 <_ZN14HardwareSerial5writeEh>
-		Serial.write(aux_ui_max);
-    16da:	60 91 59 04 	lds	r22, 0x0459	; 0x800459 <aux_ui_max>
+	Serial.write(aux_ui_max);
+    16da:	60 91 57 04 	lds	r22, 0x0457	; 0x800457 <aux_ui_max>
     16de:	88 e8       	ldi	r24, 0x88	; 136
     16e0:	91 e0       	ldi	r25, 0x01	; 1
     16e2:	0e 94 1b 01 	call	0x236	; 0x236 <_ZN14HardwareSerial5writeEh>
-		Serial.write((uint8_t)242);
+	
+	Serial.write((uint8_t)242);
     16e6:	62 ef       	ldi	r22, 0xF2	; 242
     16e8:	88 e8       	ldi	r24, 0x88	; 136
     16ea:	91 e0       	ldi	r25, 0x01	; 1
     16ec:	0e 94 1b 01 	call	0x236	; 0x236 <_ZN14HardwareSerial5writeEh>
-		Serial.write(aux_ui_min);
-    16f0:	60 91 58 04 	lds	r22, 0x0458	; 0x800458 <aux_ui_min>
+	Serial.write(aux_ui_min);
+    16f0:	60 91 56 04 	lds	r22, 0x0456	; 0x800456 <aux_ui_min>
     16f4:	88 e8       	ldi	r24, 0x88	; 136
     16f6:	91 e0       	ldi	r25, 0x01	; 1
     16f8:	0e 94 1b 01 	call	0x236	; 0x236 <_ZN14HardwareSerial5writeEh>
-		Serial.write((uint8_t)243);
+	
+	Serial.write((uint8_t)243);
     16fc:	63 ef       	ldi	r22, 0xF3	; 243
     16fe:	88 e8       	ldi	r24, 0x88	; 136
     1700:	91 e0       	ldi	r25, 0x01	; 1
     1702:	0e 94 1b 01 	call	0x236	; 0x236 <_ZN14HardwareSerial5writeEh>
-		Serial.write(aux_ui_ave);
-    1706:	60 91 57 04 	lds	r22, 0x0457	; 0x800457 <aux_ui_ave>
+	Serial.write(aux_ui_ave);
+    1706:	60 91 55 04 	lds	r22, 0x0455	; 0x800455 <aux_ui_ave>
     170a:	88 e8       	ldi	r24, 0x88	; 136
     170c:	91 e0       	ldi	r25, 0x01	; 1
     170e:	0e 94 1b 01 	call	0x236	; 0x236 <_ZN14HardwareSerial5writeEh>
-		
-		if(Serial.available () > 0)
+	
+	// leo el codigo correspondiente al boton presionado en la GUI
+	if(Serial.available () > 0)
     1712:	88 e8       	ldi	r24, 0x88	; 136
     1714:	91 e0       	ldi	r25, 0x01	; 1
     1716:	0e 94 e3 00 	call	0x1c6	; 0x1c6 <_ZN14HardwareSerial9availableEv>
     171a:	18 16       	cp	r1, r24
     171c:	19 06       	cpc	r1, r25
     171e:	24 f5       	brge	.+72     	; 0x1768 <_Z19process_temperaturef+0x1be>
-		{
-			read_value = Serial.read();
+	{
+		read_value = Serial.read();
     1720:	88 e8       	ldi	r24, 0x88	; 136
     1722:	91 e0       	ldi	r25, 0x01	; 1
     1724:	0e 94 c1 00 	call	0x182	; 0x182 <_ZN14HardwareSerial4readEv>
     1728:	90 93 64 04 	sts	0x0464, r25	; 0x800464 <read_value+0x1>
     172c:	80 93 63 04 	sts	0x0463, r24	; 0x800463 <read_value>
-			if(read_value == 1){
+		if(read_value == 1)
     1730:	01 97       	sbiw	r24, 0x01	; 1
     1732:	11 f4       	brne	.+4      	; 0x1738 <_Z19process_temperaturef+0x18e>
-				down_keyUp ();
+			down_keyUp ();
     1734:	0e 94 af 08 	call	0x115e	; 0x115e <_Z10down_keyUpv>
-			}
-			if(read_value == 2){
+		if(read_value == 2)
     1738:	80 91 63 04 	lds	r24, 0x0463	; 0x800463 <read_value>
     173c:	90 91 64 04 	lds	r25, 0x0464	; 0x800464 <read_value+0x1>
     1740:	02 97       	sbiw	r24, 0x02	; 2
     1742:	11 f4       	brne	.+4      	; 0x1748 <_Z19process_temperaturef+0x19e>
-				down_keyDown ();
+			down_keyDown ();
     1744:	0e 94 d0 08 	call	0x11a0	; 0x11a0 <_Z12down_keyDownv>
-			}
-			if(read_value == 3){
+		if(read_value == 3)
     1748:	80 91 63 04 	lds	r24, 0x0463	; 0x800463 <read_value>
     174c:	90 91 64 04 	lds	r25, 0x0464	; 0x800464 <read_value+0x1>
     1750:	03 97       	sbiw	r24, 0x03	; 3
     1752:	11 f4       	brne	.+4      	; 0x1758 <_Z19process_temperaturef+0x1ae>
-				down_keyRight ();
+			down_keyRight ();
     1754:	0e 94 f1 08 	call	0x11e2	; 0x11e2 <_Z13down_keyRightv>
-			}
-			if(read_value == 4){
+		if(read_value == 4)
     1758:	80 91 63 04 	lds	r24, 0x0463	; 0x800463 <read_value>
     175c:	90 91 64 04 	lds	r25, 0x0464	; 0x800464 <read_value+0x1>
     1760:	04 97       	sbiw	r24, 0x04	; 4
     1762:	11 f4       	brne	.+4      	; 0x1768 <_Z19process_temperaturef+0x1be>
-				down_keyLeft ();
+			down_keyLeft ();
     1764:	0e 94 12 09 	call	0x1224	; 0x1224 <_Z12down_keyLeftv>
-			}
-		}
+	}
 }
     1768:	df 91       	pop	r29
     176a:	cf 91       	pop	r28

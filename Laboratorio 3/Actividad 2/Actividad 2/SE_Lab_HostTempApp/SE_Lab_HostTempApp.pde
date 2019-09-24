@@ -49,7 +49,7 @@ void setup() {
   
   //Se inicializan los arreglos para almacenar las funciones...
   cantValues = 400;
-  f1 = new ScrollingFcnPlot(cantValues,color(0,100,100),-1,1);
+  //f1 = new ScrollingFcnPlot(cantValues,color(0,100,100),-1,1);
   fProm = new ScrollingFcnPlot(cantValues,color(0,100,0),0,50);
   fAct = new ScrollingFcnPlot(cantValues,color(20,20,20),0,50);
   fMax = new ScrollingFcnPlot(cantValues,color(0,0,100),0,50); // height

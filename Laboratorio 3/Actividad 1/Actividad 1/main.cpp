@@ -18,17 +18,24 @@ LiquidCrystal lcd(8, 9, 4, 5, 6, 7);
 const uint8_t numRows = 2;
 const uint8_t numCols = 16;
 
-float actual = 0;
+static int index = 0;
+
 float temperatures[MAX_TEMP];
 
+float actual = 0;
 float minimum = 0;
 float maximum = 0;
 float average = 0;
 
-static int index = 0;
 static uint16_t cant_samples = 0;
-static bool promflag = false;
 
+void computeMax(void);
+void computeMin(void);
+void computeAve(void);
+
+/************************************************************************/
+/*                      CALLBACKS KEYBOARD                              */
+/************************************************************************/
 
 void up_keyUp()
 {
@@ -108,6 +115,36 @@ void down_keySelect()
 	lcd.print(cant_samples);
 }
 
+/************************************************************************/
+/*                         CALLBACK SENSOR                              */
+/************************************************************************/
+
+void process_temperature(float sensor_value)
+{
+	temperatures[index] = sensor_value;
+	if(cant_samples<100)
+	cant_samples++;
+	index = (index + 1) % MAX_TEMP;
+	cant_samples++;
+
+	// computar la temperatura actual
+	if(index > 0)
+	actual = temperatures[index-1];
+	
+	// Hallar la temperatura maxima
+	computeMax();
+	
+	// Hallar la temperatura minima
+	computeMin();
+	
+	// Computar el promedio de las temperaturas registradas
+	computeAve();
+}
+
+/************************************************************************/
+/*                           AUXILIARES                                 */
+/************************************************************************/
+
 void computeMax()
 {
 	maximum = temperatures[0];
@@ -138,50 +175,22 @@ void computeMin()
 void computeAve()
 {
 	float sum = 0;
-		
-	if(promflag)
+	for (int i = 0; i < MAX_TEMP ; i++)
 	{
-		for (int i = 1; i < MAX_TEMP ; i++)
-		{
-			sum += temperatures[i];
-		}
-		average = sum / MAX_TEMP;
+		sum += temperatures[i];
 	}
+	if(cant_samples == 0)
+		average = 0;
 	else
-	{
-		for (int i = 1; i < index ; i++)
-		{
-			sum += temperatures[i];
-		}
-		if(index == 0)
-			average = 0;
-		else
-			average = sum / index;
-	}
-}
-
-void process_temperature(float sensor_value)
-{
-	// Calculo de la temperatura segun el valor retornado.
-	temperatures[index] = sensor_value;
-	if(index==100)
-		promflag = true;
-	index = (index + 1) % MAX_TEMP;
-	cant_samples++;
-	if(index > 0)
-		actual = temperatures[index-1];
-	computeMax();
-	computeMin();
-	computeAve();
-
+		average = sum / cant_samples;
 }
 
 void setup()
 {
 	lcd.begin(numCols,numRows);
 
-	for(int i=0; i<MAX_TEMP;i++)
-		temperatures[i]=-1;
+	for(int i = 0; i<MAX_TEMP;i++)
+		temperatures[i]=0.0f;
 
 	lcd.setCursor (0,0);
 	lcd.print ("SE2019 Sen.Temp.");
