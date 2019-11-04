@@ -1,0 +1,9 @@
+11:02:53 **** Incremental Build of configuration Nios II for project actividad_4 ****
+make all 
+Info: Building ../actividad_4_bsp/
+C:/intelFPGA_lite/18.0/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../actividad_4_bsp/
+[BSP build complete]
+[actividad_4 build complete]
+
+11:02:56 Build Finished (took 2s.282ms)
+

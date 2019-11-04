@@ -1,0 +1,112 @@
+
+module CAdd (A0,A1,A2,A3,S0,S1,S2,S3);
+
+	input A0;
+	input A1;
+	input A2;
+	input A3;
+	output S0;
+	output S1;
+	output S2;
+	output S3;
+	
+	reg S0;
+	reg S1;
+	reg S2;
+	reg S3;
+	
+	reg [3:0] entrada;
+	
+	always @(A0 or A1 or A2 or A3)
+		begin	
+			entrada[0] <= A0;
+			entrada[1] <= A1;
+			entrada[2] <= A2;
+			entrada[3] <= A3;
+		end
+	
+	always @(entrada)
+		begin
+			case (entrada)
+				4'b0000:
+					begin
+						S0 = 1'b0;
+						S1 = 1'b0;
+						S2 = 1'b0;
+						S3 = 1'b0;
+					end
+				4'b0001:
+					begin
+						S0 = 1'b1;
+						S1 = 1'b0;
+						S2 = 1'b0;
+						S3 = 1'b0;
+					end
+				4'b0010:
+					begin
+						S0 = 1'b0;
+						S1 = 1'b1;
+						S2 = 1'b0;
+						S3 = 1'b0;
+					end
+				4'b0011:
+					begin
+						S0 = 1'b1;
+						S1 = 1'b1;
+						S2 = 1'b0;
+						S3 = 1'b0;
+					end
+				4'b0100:
+					begin
+						S0 = 1'b0;
+						S1 = 1'b0;
+						S2 = 1'b1;
+						S3 = 1'b0;
+					end
+				4'b0101:
+					begin
+						S0 = 1'b0;
+						S1 = 1'b0;
+						S2 = 1'b0;
+						S3 = 1'b1;
+					end
+				4'b0110:
+					begin
+						S0 = 1'b1;
+						S1 = 1'b0;
+						S2 = 1'b0;
+						S3 = 1'b1;
+					end
+				4'b0111:
+					begin
+						S0 = 1'b0;
+						S1 = 1'b1;
+						S2 = 1'b0;
+						S3 = 1'b1;
+					end
+				4'b1000:
+					begin
+						S0 = 1'b1;
+						S1 = 1'b1;
+						S2 = 1'b0;
+						S3 = 1'b1;
+					end
+				4'b1001:
+					begin
+						S0 = 1'b0;
+						S1 = 1'b0;
+						S2 = 1'b1;
+						S3 = 1'b1;
+					end
+				default:
+					begin
+						S0 = 1'b0;
+						S1 = 1'b0;
+						S2 = 1'b0;
+						S3 = 1'b0;
+					end
+			endcase
+		
+		end
+
+endmodule

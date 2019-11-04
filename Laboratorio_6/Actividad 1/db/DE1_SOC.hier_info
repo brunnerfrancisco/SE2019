@@ -1,0 +1,149 @@
+|Actividad1
+CLOCK_50 => CLOCK_50.IN1
+LEDR[0] <= <GND>
+LEDR[1] <= <GND>
+LEDR[2] <= <GND>
+LEDR[3] <= <GND>
+LEDR[4] <= <GND>
+LEDR[5] <= <GND>
+LEDR[6] <= multi:m1.result
+LEDR[7] <= multi:m1.result
+LEDR[8] <= multi:m1.result
+LEDR[9] <= multi:m1.result
+SW[0] => ~NO_FANOUT~
+SW[1] => ~NO_FANOUT~
+SW[2] => ~NO_FANOUT~
+SW[3] => ~NO_FANOUT~
+SW[4] => SW[4].IN1
+SW[5] => ~NO_FANOUT~
+SW[6] => ~NO_FANOUT~
+SW[7] => ~NO_FANOUT~
+SW[8] => ~NO_FANOUT~
+SW[9] => ~NO_FANOUT~
+
+
+|Actividad1|temporizador:t1
+reloj => salida[0]~reg0.CLK
+reloj => salida[1]~reg0.CLK
+reloj => salida[2]~reg0.CLK
+reloj => salida[3]~reg0.CLK
+reloj => salida[4]~reg0.CLK
+reloj => salida[5]~reg0.CLK
+reloj => salida[6]~reg0.CLK
+reloj => salida[7]~reg0.CLK
+reloj => salida[8]~reg0.CLK
+reloj => salida[9]~reg0.CLK
+reloj => salida[10]~reg0.CLK
+reloj => salida[11]~reg0.CLK
+reloj => salida[12]~reg0.CLK
+reloj => salida[13]~reg0.CLK
+reloj => salida[14]~reg0.CLK
+reloj => salida[15]~reg0.CLK
+reloj => salida[16]~reg0.CLK
+reloj => salida[17]~reg0.CLK
+reloj => salida[18]~reg0.CLK
+reloj => salida[19]~reg0.CLK
+reloj => salida[20]~reg0.CLK
+reloj => salida[21]~reg0.CLK
+reloj => salida[22]~reg0.CLK
+reloj => salida[23]~reg0.CLK
+reloj => salida[24]~reg0.CLK
+reloj => salida[25]~reg0.CLK
+reloj => salida[26]~reg0.CLK
+reloj => salida[27]~reg0.CLK
+reloj => salida[28]~reg0.CLK
+reloj => salida[29]~reg0.CLK
+reloj => salida[30]~reg0.CLK
+reloj => salida[31]~reg0.CLK
+salida[0] <= salida[0]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+salida[1] <= salida[1]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+salida[2] <= salida[2]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+salida[3] <= salida[3]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+salida[4] <= salida[4]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+salida[5] <= salida[5]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+salida[6] <= salida[6]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+salida[7] <= salida[7]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+salida[8] <= salida[8]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+salida[9] <= salida[9]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+salida[10] <= salida[10]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+salida[11] <= salida[11]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+salida[12] <= salida[12]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+salida[13] <= salida[13]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+salida[14] <= salida[14]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+salida[15] <= salida[15]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+salida[16] <= salida[16]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+salida[17] <= salida[17]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+salida[18] <= salida[18]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+salida[19] <= salida[19]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+salida[20] <= salida[20]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+salida[21] <= salida[21]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+salida[22] <= salida[22]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+salida[23] <= salida[23]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+salida[24] <= salida[24]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+salida[25] <= salida[25]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+salida[26] <= salida[26]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+salida[27] <= salida[27]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+salida[28] <= salida[28]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+salida[29] <= salida[29]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+salida[30] <= salida[30]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+salida[31] <= salida[31]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|Actividad1|multi:m1
+data0x[0] => sub_wire1[0].IN1
+data0x[1] => sub_wire1[1].IN1
+data0x[2] => sub_wire1[2].IN1
+data0x[3] => sub_wire1[3].IN1
+data1x[0] => sub_wire1[4].IN1
+data1x[1] => sub_wire1[5].IN1
+data1x[2] => sub_wire1[6].IN1
+data1x[3] => sub_wire1[7].IN1
+sel => sub_wire4.IN1
+result[0] <= lpm_mux:LPM_MUX_component.result
+result[1] <= lpm_mux:LPM_MUX_component.result
+result[2] <= lpm_mux:LPM_MUX_component.result
+result[3] <= lpm_mux:LPM_MUX_component.result
+
+
+|Actividad1|multi:m1|lpm_mux:LPM_MUX_component
+data[0][0] => mux_sjc:auto_generated.data[0]
+data[0][1] => mux_sjc:auto_generated.data[1]
+data[0][2] => mux_sjc:auto_generated.data[2]
+data[0][3] => mux_sjc:auto_generated.data[3]
+data[1][0] => mux_sjc:auto_generated.data[4]
+data[1][1] => mux_sjc:auto_generated.data[5]
+data[1][2] => mux_sjc:auto_generated.data[6]
+data[1][3] => mux_sjc:auto_generated.data[7]
+sel[0] => mux_sjc:auto_generated.sel[0]
+clock => ~NO_FANOUT~
+aclr => ~NO_FANOUT~
+clken => ~NO_FANOUT~
+result[0] <= mux_sjc:auto_generated.result[0]
+result[1] <= mux_sjc:auto_generated.result[1]
+result[2] <= mux_sjc:auto_generated.result[2]
+result[3] <= mux_sjc:auto_generated.result[3]
+
+
+|Actividad1|multi:m1|lpm_mux:LPM_MUX_component|mux_sjc:auto_generated
+data[0] => l1_w0_n0_mux_dataout.IN1
+data[1] => l1_w1_n0_mux_dataout.IN1
+data[2] => l1_w2_n0_mux_dataout.IN1
+data[3] => l1_w3_n0_mux_dataout.IN1
+data[4] => l1_w0_n0_mux_dataout.IN1
+data[5] => l1_w1_n0_mux_dataout.IN1
+data[6] => l1_w2_n0_mux_dataout.IN1
+data[7] => l1_w3_n0_mux_dataout.IN1
+result[0] <= l1_w0_n0_mux_dataout.DB_MAX_OUTPUT_PORT_TYPE
+result[1] <= l1_w1_n0_mux_dataout.DB_MAX_OUTPUT_PORT_TYPE
+result[2] <= l1_w2_n0_mux_dataout.DB_MAX_OUTPUT_PORT_TYPE
+result[3] <= l1_w3_n0_mux_dataout.DB_MAX_OUTPUT_PORT_TYPE
+sel[0] => l1_w0_n0_mux_dataout.IN0
+sel[0] => _.IN0
+sel[0] => l1_w1_n0_mux_dataout.IN0
+sel[0] => _.IN0
+sel[0] => l1_w2_n0_mux_dataout.IN0
+sel[0] => _.IN0
+sel[0] => l1_w3_n0_mux_dataout.IN0
+sel[0] => _.IN0
+
+
